@@ -171,19 +171,25 @@ def main():
 
             # Load DBIP database
             print("Loading DBIP database")
-            dbip_ipv4, dbpip_ipv6 = load_dbip_csv(
+            dbip_ipv4, dbip_ipv6 = load_dbip_csv(
                 file_path=f"{data_dir_path}/{dbip_filename}",
                 country_iso_code=geolocation["iso_code"],
             )
             # Convert IP range to CIDR
             dbip_ipv4 = convert_iprange_to_cidr(dbip_ipv4, ipv6=False)
-            dbpip_ipv6 = convert_iprange_to_cidr(dbpip_ipv6, ipv6=True)
+            dbip_ipv6 = convert_iprange_to_cidr(dbip_ipv6, ipv6=True)
+
+            print(f"IPv4 entries found: {len(dbip_ipv4)}")
+            print(f"IPv6 entries found: {len(dbip_ipv6)}")
 
             # Load MaxMind GeoLite2 database
             print("Loading MaxMind GeoLite2 database")
             geolite2_ipv4_df, geolite2_ipv6_df = load_geolite2_csv(
                 dir_path=geolite2_db_dir, geolocation=geolocation
             )
+
+            print(f"IPv4 entries found: {len(geolite2_ipv4_df)}")
+            print(f"IPv6 entries found: {len(geolite2_ipv6_df)}")
 
             # Load and concat autonomous systems CIDRs CSVs
             print("Loading autonomous systems CIDR database")
@@ -201,6 +207,9 @@ def main():
                     ignore_index=True,
                 )
 
+            print(f"IPv4 entries found: {len(aggregated_ipv4_df)}")
+            print(f"IPv6 entries found: {len(aggregated_ipv6_df)}")
+
             # Load ITO database
             if geolocation["iso_code"] == "IR":
                 print("Loading ITO database")
@@ -208,6 +217,7 @@ def main():
                 aggregated_ipv4_df = pd.concat(
                     [aggregated_ipv4_df, ito_df], ignore_index=True
                 )
+                print(f"IPv4 entries found: {len(ito_df)}")
 
             # Concat all of the loaded CSVs
             print("Concatenating databases into one")
@@ -218,10 +228,16 @@ def main():
                 [aggregated_ipv6_df, geolite2_ipv6_df], ignore_index=True
             )
 
+            print(f"Total raw IPv4 entries: {len(aggregated_ipv4_df)}")
+            print(f"Total raw IPv6 entries: {len(aggregated_ipv6_df)}")
+
             # Remove duplicates
             print("Cleaning up")
             aggregated_ipv4_df = aggregated_ipv4_df.drop_duplicates()
             aggregated_ipv6_df = aggregated_ipv6_df.drop_duplicates()
+
+            print(f"Total unique IPv4 entries: {len(aggregated_ipv4_df)}")
+            print(f"Total unique IPv6 entries: {len(aggregated_ipv6_df)}")
 
         # Merge IPv4 and IPv6 into one DataFrame for easier processing
         aggregated_df = pd.concat(
