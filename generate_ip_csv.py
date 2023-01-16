@@ -163,6 +163,7 @@ def main():
     ]
     aggregated_ipv4_df = pd.DataFrame(columns=["Network", "Country"])
     aggregated_ipv6_df = pd.DataFrame(columns=["Network", "Country"])
+    aggregated_df = pd.DataFrame(columns=["Network", "Country"])
 
     if os.path.exists(data_dir_path):
         for geolocation in geolocations:
@@ -222,11 +223,15 @@ def main():
             aggregated_ipv4_df = aggregated_ipv4_df.drop_duplicates()
             aggregated_ipv6_df = aggregated_ipv6_df.drop_duplicates()
 
-        # Save combined CSV
-        print(f"\nSaving CSV to {export_dir_path}/agg_ipv*.csv")
+        # Merge IPv4 and IPv6 into one DataFrame for easier processing
+        aggregated_df = pd.concat(
+            [aggregated_ipv4_df, aggregated_ipv6_df], ignore_index=True
+        )
+
+        # Save merged CSV
+        print(f"\nSaving CSV to {export_dir_path}/agg_cidrs.csv")
         os.makedirs(export_dir_path, exist_ok=True)
-        aggregated_ipv4_df.to_csv(f"{export_dir_path}/agg_ipv4.csv", index=False)
-        aggregated_ipv6_df.to_csv(f"{export_dir_path}/agg_ipv6.csv", index=False)
+        aggregated_df.to_csv(f"{export_dir_path}/agg_cidrs.csv", index=False)
     else:
         print(f"Database directory '{data_dir_path}' was not found!")
         exit(0)
