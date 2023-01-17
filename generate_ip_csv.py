@@ -7,9 +7,11 @@
 import glob
 import ipaddress
 import os
+from pathlib import Path
 
 import pandas as pd
 from bs4 import BeautifulSoup
+from genericpath import isfile
 
 
 def convert_iprange_to_cidr(df: pd.DataFrame, ipv6=False):
@@ -210,6 +212,7 @@ def main():
     data_dir_path = "./Data"
     geolite2_db_dir = f"{data_dir_path}/GeoLite2"
     autonomous_systems_db_dir = f"{data_dir_path}/AS_CIDRs"
+    manual_db_dir = f"{data_dir_path}/Manual"
     dbip_filename = "dbip-country-lite-2023-01.csv"
     ito_excel_filename = "Export-14011020215714.xls"
     geolocations = [
@@ -257,19 +260,39 @@ def main():
 
             # Load and concat autonomous systems CIDRs CSVs
             print("\nLoading autonomous systems CIDR database")
-            as_ipv4_df = pd.read_csv(
+            if Path(
                 f"{autonomous_systems_db_dir}/ipv4_{geolocation['iso_code']}.csv"
-            )
-            as_ipv6_df = pd.read_csv(
+            ).is_file():
+                as_ipv4_df = pd.read_csv(
+                    f"{autonomous_systems_db_dir}/ipv4_{geolocation['iso_code']}.csv"
+                )
+                print(f"IPv4 entries found: {len(as_ipv4_df)}")
+                aggregated_ipv4_df = concat_df(aggregated_ipv4_df, as_ipv4_df)
+
+            if Path(
                 f"{autonomous_systems_db_dir}/ipv6_{geolocation['iso_code']}.csv"
-            )
+            ).is_file():
+                as_ipv6_df = pd.read_csv(
+                    f"{autonomous_systems_db_dir}/ipv6_{geolocation['iso_code']}.csv"
+                )
+                print(f"IPv6 entries found: {len(as_ipv6_df)}")
+                aggregated_ipv6_df = concat_df(aggregated_ipv6_df, as_ipv6_df)
 
-            print(f"IPv4 entries found: {len(as_ipv4_df)}")
-            print(f"IPv6 entries found: {len(as_ipv6_df)}")
+            # Load manually found CIDRs if available
+            print("\nLoading manually found CIDR database")
+            if Path(f"{manual_db_dir}/ipv4_{geolocation['iso_code']}.csv").is_file():
+                manual_ipv4_df = pd.read_csv(
+                    f"{manual_db_dir}/ipv4_{geolocation['iso_code']}.csv"
+                )
+                print(f"IPv4 entries found: {len(manual_ipv4_df)}")
+                aggregated_ipv4_df = concat_df(aggregated_ipv4_df, manual_ipv4_df)
 
-            # Add to aggregated DataFrame
-            aggregated_ipv4_df = concat_df(aggregated_ipv4_df, as_ipv4_df)
-            aggregated_ipv6_df = concat_df(aggregated_ipv6_df, as_ipv6_df)
+            if Path(f"{manual_db_dir}/ipv6_{geolocation['iso_code']}.csv").is_file():
+                manual_ipv6_df = pd.read_csv(
+                    f"{manual_db_dir}/ipv6_{geolocation['iso_code']}.csv"
+                )
+                print(f"IPv6 entries found: {len(manual_ipv6_df)}")
+                aggregated_ipv6_df = concat_df(aggregated_ipv6_df, manual_ipv6_df)
 
             # Load ITO database
             if geolocation["iso_code"] == "IR":
