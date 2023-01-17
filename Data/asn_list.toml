@@ -610,11 +610,6 @@ asn = "AS43212"
 country = "IR"
 
 [[autonomous_systems]]
-name = "Dgn Teknoloji A.s."
-asn = "AS43260"
-country = "IR"
-
-[[autonomous_systems]]
 name = "Pooya Parto Qeshm Cooperative Company"
 asn = "AS43395"
 country = "IR"
