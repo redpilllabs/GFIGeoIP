@@ -149,6 +149,14 @@ def read_ito_db(xls_path: str):
     return ito_df
 
 
+def concat_df(dst_df: pd.DataFrame, src_df: pd.DataFrame):
+    dst_df = pd.concat(
+        [dst_df, src_df],
+        ignore_index=True,
+    )
+    return dst_df
+
+
 def main():
     export_dir_path = "./Aggregated_Data"
     data_dir_path = "./Data"
@@ -158,8 +166,8 @@ def main():
     ito_excel_filename = "Export-14011020215714.xls"
     geolocations = [
         {"name": "Iran", "iso_code": "IR"},
-        {"name": "China", "iso_code": "CN"},
-        {"name": "Russia", "iso_code": "RU"},
+        # {"name": "China", "iso_code": "CN"},
+        # {"name": "Russia", "iso_code": "RU"},
     ]
     aggregated_ipv4_df = pd.DataFrame(columns=["Network", "Country"])
     aggregated_ipv6_df = pd.DataFrame(columns=["Network", "Country"])
@@ -167,10 +175,10 @@ def main():
 
     if os.path.exists(data_dir_path):
         for geolocation in geolocations:
-            print(f"\nAggregating data for {geolocation['name']}")
+            print(f"\n\n*** Aggregating data for {geolocation['name']} ***")
 
             # Load DBIP database
-            print("Loading DBIP database")
+            print("\nLoading DBIP database")
             dbip_ipv4, dbip_ipv6 = load_dbip_csv(
                 file_path=f"{data_dir_path}/{dbip_filename}",
                 country_iso_code=geolocation["iso_code"],
@@ -182,8 +190,12 @@ def main():
             print(f"IPv4 entries found: {len(dbip_ipv4)}")
             print(f"IPv6 entries found: {len(dbip_ipv6)}")
 
+            # Add to aggregated DataFrame
+            aggregated_ipv4_df = concat_df(aggregated_ipv4_df, dbip_ipv4)
+            aggregated_ipv6_df = concat_df(aggregated_ipv6_df, dbip_ipv6)
+
             # Load MaxMind GeoLite2 database
-            print("Loading MaxMind GeoLite2 database")
+            print("\nLoading MaxMind GeoLite2 database")
             geolite2_ipv4_df, geolite2_ipv6_df = load_geolite2_csv(
                 dir_path=geolite2_db_dir, geolocation=geolocation
             )
@@ -191,53 +203,57 @@ def main():
             print(f"IPv4 entries found: {len(geolite2_ipv4_df)}")
             print(f"IPv6 entries found: {len(geolite2_ipv6_df)}")
 
+            # Add to aggregated DataFrame
+            aggregated_ipv4_df = concat_df(aggregated_ipv4_df, geolite2_ipv4_df)
+            aggregated_ipv6_df = concat_df(aggregated_ipv6_df, geolite2_ipv6_df)
+
             # Load and concat autonomous systems CIDRs CSVs
-            print("Loading autonomous systems CIDR database")
+            print("\nLoading autonomous systems CIDR database")
+            as_ipv4_df = pd.DataFrame()
             for ipv4_file in glob.iglob(f"{autonomous_systems_db_dir}/ipv4_*.csv"):
                 geolocation_autonomous_systems_df = pd.read_csv(ipv4_file)
-                aggregated_ipv4_df = pd.concat(
-                    [aggregated_ipv4_df, geolocation_autonomous_systems_df],
+                as_ipv4_df = pd.concat(
+                    [as_ipv4_df, geolocation_autonomous_systems_df],
                     ignore_index=True,
                 )
 
+            as_ipv6_df = pd.DataFrame()
             for ipv6_file in glob.iglob(f"{autonomous_systems_db_dir}/ipv6_*.csv"):
                 geolocation_autonomous_systems_df = pd.read_csv(ipv6_file)
-                aggregated_ipv6_df = pd.concat(
-                    [aggregated_ipv6_df, geolocation_autonomous_systems_df],
+                as_ipv6_df = pd.concat(
+                    [as_ipv6_df, geolocation_autonomous_systems_df],
                     ignore_index=True,
                 )
 
-            print(f"IPv4 entries found: {len(aggregated_ipv4_df)}")
-            print(f"IPv6 entries found: {len(aggregated_ipv6_df)}")
+            print(f"IPv4 entries found: {len(as_ipv4_df)}")
+            print(f"IPv6 entries found: {len(as_ipv6_df)}")
+
+            # Add to aggregated DataFrame
+            aggregated_ipv4_df = concat_df(aggregated_ipv4_df, as_ipv4_df)
+            aggregated_ipv6_df = concat_df(aggregated_ipv6_df, as_ipv6_df)
 
             # Load ITO database
             if geolocation["iso_code"] == "IR":
-                print("Loading ITO database")
+                print("\nLoading ITO database")
                 ito_df = read_ito_db(f"{data_dir_path}/{ito_excel_filename}")
+                print(f"IPv4 entries found: {len(ito_df)}")
                 aggregated_ipv4_df = pd.concat(
                     [aggregated_ipv4_df, ito_df], ignore_index=True
                 )
-                print(f"IPv4 entries found: {len(ito_df)}")
-
-            # Concat all of the loaded CSVs
-            print("Concatenating databases into one")
-            aggregated_ipv4_df = pd.concat(
-                [aggregated_ipv4_df, geolite2_ipv4_df], ignore_index=True
-            )
-            aggregated_ipv6_df = pd.concat(
-                [aggregated_ipv6_df, geolite2_ipv6_df], ignore_index=True
-            )
 
             print(f"Total raw IPv4 entries: {len(aggregated_ipv4_df)}")
             print(f"Total raw IPv6 entries: {len(aggregated_ipv6_df)}")
 
-            # Remove duplicates
-            print("Cleaning up")
-            aggregated_ipv4_df = aggregated_ipv4_df.drop_duplicates()
-            aggregated_ipv6_df = aggregated_ipv6_df.drop_duplicates()
+        # Remove duplicates
+        print("\nCleaning up")
+        aggregated_ipv4_df = aggregated_ipv4_df.drop_duplicates()
+        aggregated_ipv6_df = aggregated_ipv6_df.drop_duplicates()
 
-            print(f"Total unique IPv4 entries: {len(aggregated_ipv4_df)}")
-            print(f"Total unique IPv6 entries: {len(aggregated_ipv6_df)}")
+        print(f"Total unique IPv4 entries: {len(aggregated_ipv4_df)}")
+        print(f"Total unique IPv6 entries: {len(aggregated_ipv6_df)}")
+
+        aggregated_ipv4_df.sort_values("Network", inplace=True)
+        aggregated_ipv6_df.sort_values("Network", inplace=True)
 
         # Merge IPv4 and IPv6 into one DataFrame for easier processing
         aggregated_df = pd.concat(
