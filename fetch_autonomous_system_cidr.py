@@ -32,6 +32,7 @@ def fetch_cidrs(asn_dict: dict):
             if not data:
                 break
             ipv4_data += data
+            ipv6_data += data
 
     ipv4_data = [i for i in ipv4_data.split("\n") if i.startswith("route:")]
     ipv6_data = [i for i in ipv6_data.split("\n") if i.startswith("route6:")]
@@ -56,7 +57,7 @@ def fetch_cidrs(asn_dict: dict):
 
 def main():
     output_dir = "./Data/AS_CIDRs"
-    country_iso_code = "IR"
+    country_iso_codes = ["CN", "IR", "RU"]
     asn_filename = "asn_list.toml"
     cidrs_ivp4_df = pd.DataFrame()
     cidrs_ivp6_df = pd.DataFrame()
@@ -67,23 +68,25 @@ def main():
         else:
             asn_list = tomllib.load(asn_file)["autonomous_systems"]
 
-    asn_list = [item for item in asn_list if item["country"] in [country_iso_code]]
+    for country in country_iso_codes:
+        print(f"\n\n--- Fetching Autonomous System CIDRs for {country} ---\n\n")
+        country_asn_list = [item for item in asn_list if item["country"] == country]
 
-    for item in asn_list:
-        ipv4_df, ipv6_df = fetch_cidrs(asn_dict=item)
-        cidrs_ivp4_df = pd.concat([cidrs_ivp4_df, ipv4_df], ignore_index=True)
-        cidrs_ivp6_df = pd.concat([cidrs_ivp6_df, ipv6_df], ignore_index=True)
-        # Take some rest
-        sleep(1)
+        for item in country_asn_list:
+            ipv4_df, ipv6_df = fetch_cidrs(asn_dict=item)
+            cidrs_ivp4_df = pd.concat([cidrs_ivp4_df, ipv4_df], ignore_index=True)
+            cidrs_ivp6_df = pd.concat([cidrs_ivp6_df, ipv6_df], ignore_index=True)
+            # Take some rest
+            sleep(1)
 
-    # Remove duplicates
-    cidrs_ivp4_df = cidrs_ivp4_df.drop_duplicates()
-    cidrs_ivp6_df = cidrs_ivp6_df.drop_duplicates()
+        # Remove duplicates
+        cidrs_ivp4_df = cidrs_ivp4_df.drop_duplicates()
+        cidrs_ivp6_df = cidrs_ivp6_df.drop_duplicates()
 
-    # Save to CSV
-    makedirs(output_dir, exist_ok=True)
-    cidrs_ivp4_df.to_csv(f"{output_dir}/ipv4_{country_iso_code}.csv", index=False)
-    cidrs_ivp6_df.to_csv(f"{output_dir}/ipv6_{country_iso_code}.csv", index=False)
+        # Save to CSV
+        makedirs(output_dir, exist_ok=True)
+        cidrs_ivp4_df.to_csv(f"{output_dir}/ipv4_{country}.csv", index=False)
+        cidrs_ivp6_df.to_csv(f"{output_dir}/ipv6_{country}.csv", index=False)
 
 
 if __name__ == "__main__":
