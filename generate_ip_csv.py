@@ -157,6 +157,54 @@ def concat_df(dst_df: pd.DataFrame, src_df: pd.DataFrame):
     return dst_df
 
 
+def expand_df(df: pd.DataFrame):
+    """
+    Takes a DataFrame containing IPv4 CIDRs, finds duplicate networks but with different subnets,
+    throws away the less expansive ones (higher subnet numbers) and converts all single-IP entries to /24 subnet
+
+    Args:
+        df (pd.DataFrame): IPv4 DataFrame
+
+    Returns:
+        pd.DataFrame: Expanded DataFrame
+    """
+    # Separate the subnet notation from the IP
+    split_list = []
+    for row in zip(df["Network"], df["Country"]):
+        ip_arr = str(row[0]).split("/")
+        ip_addr = ip_arr[0]
+        ip_subnet = ip_arr[1]
+        split_list.append({"IP": ip_addr, "Subnet": int(ip_subnet), "Country": row[1]})
+
+    # Convert all single IPv4s to their last octet's max range
+    print("-> Converting /32 IPv4 subnets to /24 to be more expansive")
+    extensive_list = []
+    for item in split_list:
+        if "." in item["IP"] and item["Subnet"] == 32:
+            octets_arr = item["IP"].split(".")
+            octets_arr[3] = "0"
+            item["IP"] = ".".join(octets_arr)
+            item["Subnet"] = 24
+        extensive_list.append(
+            {"IP": item["IP"], "Subnet": item["Subnet"], "Country": item["Country"]}
+        )
+
+    # Remove any duplicates resulting from above operations
+    print("-> Dropping duplicate IPs but with higher subnets")
+    tmp_df = pd.DataFrame(extensive_list)
+    tmp_df = tmp_df.sort_values("Subnet", ascending=True)
+    tmp_df = tmp_df.drop_duplicates(subset=["IP"])
+
+    result_list = []
+    for row in zip(tmp_df["IP"], tmp_df["Subnet"], tmp_df["Country"]):
+        cidr = f"{row[0]}/{row[1]}"
+        result_list.append({"Network": cidr, "Country": row[2]})
+    result_df = pd.DataFrame(result_list)
+    result_df = result_df.sort_values("Country").reset_index(drop=True)
+
+    return result_df
+
+
 def main():
     export_dir_path = "./Aggregated_Data"
     data_dir_path = "./Data"
@@ -166,8 +214,8 @@ def main():
     ito_excel_filename = "Export-14011020215714.xls"
     geolocations = [
         {"name": "Iran", "iso_code": "IR"},
-        # {"name": "China", "iso_code": "CN"},
-        # {"name": "Russia", "iso_code": "RU"},
+        {"name": "China", "iso_code": "CN"},
+        {"name": "Russia", "iso_code": "RU"},
     ]
     aggregated_ipv4_df = pd.DataFrame(columns=["Network", "Country"])
     aggregated_ipv6_df = pd.DataFrame(columns=["Network", "Country"])
@@ -209,21 +257,12 @@ def main():
 
             # Load and concat autonomous systems CIDRs CSVs
             print("\nLoading autonomous systems CIDR database")
-            as_ipv4_df = pd.DataFrame()
-            for ipv4_file in glob.iglob(f"{autonomous_systems_db_dir}/ipv4_*.csv"):
-                geolocation_autonomous_systems_df = pd.read_csv(ipv4_file)
-                as_ipv4_df = pd.concat(
-                    [as_ipv4_df, geolocation_autonomous_systems_df],
-                    ignore_index=True,
-                )
-
-            as_ipv6_df = pd.DataFrame()
-            for ipv6_file in glob.iglob(f"{autonomous_systems_db_dir}/ipv6_*.csv"):
-                geolocation_autonomous_systems_df = pd.read_csv(ipv6_file)
-                as_ipv6_df = pd.concat(
-                    [as_ipv6_df, geolocation_autonomous_systems_df],
-                    ignore_index=True,
-                )
+            as_ipv4_df = pd.read_csv(
+                f"{autonomous_systems_db_dir}/ipv4_{geolocation['iso_code']}.csv"
+            )
+            as_ipv6_df = pd.read_csv(
+                f"{autonomous_systems_db_dir}/ipv6_{geolocation['iso_code']}.csv"
+            )
 
             print(f"IPv4 entries found: {len(as_ipv4_df)}")
             print(f"IPv6 entries found: {len(as_ipv6_df)}")
@@ -241,19 +280,21 @@ def main():
                     [aggregated_ipv4_df, ito_df], ignore_index=True
                 )
 
-            print(f"Total raw IPv4 entries: {len(aggregated_ipv4_df)}")
-            print(f"Total raw IPv6 entries: {len(aggregated_ipv6_df)}")
-
         # Remove duplicates
-        print("\nCleaning up")
+        print("\n====================================")
+        print("||     Cleaning up duplicates     ||")
+        print("====================================")
+        print("\n-> Dropping duplicates")
         aggregated_ipv4_df = aggregated_ipv4_df.drop_duplicates()
         aggregated_ipv6_df = aggregated_ipv6_df.drop_duplicates()
 
-        print(f"Total unique IPv4 entries: {len(aggregated_ipv4_df)}")
-        print(f"Total unique IPv6 entries: {len(aggregated_ipv6_df)}")
+        aggregated_ipv4_df = expand_df(aggregated_ipv4_df)
 
-        aggregated_ipv4_df.sort_values("Network", inplace=True)
-        aggregated_ipv6_df.sort_values("Network", inplace=True)
+        print("\n====================================")
+        print("||           Results              ||")
+        print("====================================")
+        print(f"--- Total unique IPv4 entries: {len(aggregated_ipv4_df)}")
+        print(f"--- Total unique IPv6 entries: {len(aggregated_ipv6_df)}")
 
         # Merge IPv4 and IPv6 into one DataFrame for easier processing
         aggregated_df = pd.concat(
