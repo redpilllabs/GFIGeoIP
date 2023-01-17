@@ -58,7 +58,7 @@ def fetch_cidrs(asn_dict: dict):
 def main():
     output_dir = "./Data/AS_CIDRs"
     country_iso_codes = ["CN", "IR", "RU"]
-    asn_filename = "asn_list.toml"
+    asn_filename = "./Data/asn_list.toml"
     cidrs_ivp4_df = pd.DataFrame()
     cidrs_ivp6_df = pd.DataFrame()
 
