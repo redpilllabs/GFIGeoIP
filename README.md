@@ -8,4 +8,8 @@ Aggregated data are pulled from multiple sources such as DBIP, MaxMind Geolite2,
 
 # How do I use it?
 
-The aggregated data is available inside `/Aggregated_Data/agg_cidrs.csv'` containing networks in CIDR format tagged with the relevant geolocation or content type.
+The aggregated data is available inside `/Aggregated_Data/agg_cidrs.csv` containing networks in CIDR format tagged with the relevant geolocation or content type.
+
+# Collaboration
+
+I welcome any efforts to make the `asn_list.toml` even more comprehensive and complete but in order to protect the data reliability, PRs containing the `agg_cidrs.csv` file will not be accepted, only the `.py` and `asn_list.toml` files are accepted.
