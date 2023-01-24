@@ -8,4 +8,4 @@ Aggregated data are pulled from multiple sources such as DBIP, MaxMind Geolite2,
 
 # How do I use it?
 
-The aggregated data is available inside `/Aggregated_Data/agg_cidrs.csv' containing networks in CIDR format tagged with the relevant geolocation or content type.
+The aggregated data is available inside `/Aggregated_Data/agg_cidrs.csv'` containing networks in CIDR format tagged with the relevant geolocation or content type.
