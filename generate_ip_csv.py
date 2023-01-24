@@ -7,6 +7,7 @@
 import glob
 import ipaddress
 import os
+from importlib.resources import contents
 from pathlib import Path
 
 import pandas as pd
@@ -40,24 +41,24 @@ def convert_iprange_to_cidr(df: pd.DataFrame, ipv6=False):
         summary = ipaddress.summarize_address_range(startip, endip)
         current_cidr = list(summary)
         for item in current_cidr:
-            cidr_list.append({"Network": item.__str__(), "Country": row["Country"]})
+            cidr_list.append({"Network": item.__str__(), "Tag": row["Tag"]})
 
     return pd.DataFrame(cidr_list)
 
 
-def load_dbip_csv(file_path: str, country_iso_code: str):
+def load_dbip_csv(file_path: str, tag: str):
     """
     Reads CSV file from DBIP
 
     Args:
         file_path (str): Path to CSV file.
-        country_iso_code (str): Country code in ISO to extract rows of.
+        tag (str): Country code in ISO to extract rows of.
 
     Returns:
         DataFrame: Two DataFrames containing IPv4 and IPv6 data
     """
-    df = pd.read_csv(file_path, names=["Range_Start", "Range_End", "Country"])
-    df = df.loc[df["Country"].isin([country_iso_code])]
+    df = pd.read_csv(file_path, names=["Range_Start", "Range_End", "Tag"])
+    df = df.loc[df["Tag"].isin([tag])]
     df_ip4 = df.loc[~df["Range_Start"].str.contains(":")]
     df_ip6 = df.loc[df["Range_Start"].str.contains(":")]
 
@@ -80,14 +81,14 @@ def extract_geo_id(geolite2_countries_file: str, country: str):
     return int(str(geoid.values[0]))
 
 
-def extract_geolite2_cidr(geolite2_ipblocks_csv: str, geoid: int, iso_code: str):
+def extract_geolite2_cidr(geolite2_ipblocks_csv: str, geoid: int, tag: str):
     """
     Extracts CIDR data from the 'GeoLite2-Country-Blocks-IPv*.csv' files
 
     Args:
         geolite2_ipblocks_csv (str): Path to 'GeoLite2-Country-Blocks-IPv*.csv'
         geoid (int): GeoID of the CIDRs to extract
-        iso_code (str): Country ISO code to append at the end
+        tag (str): Country ISO code to append at the end
 
     Returns:
         DataFrame: DataFrame containing CIDR data
@@ -107,7 +108,7 @@ def extract_geolite2_cidr(geolite2_ipblocks_csv: str, geoid: int, iso_code: str)
         ]
     )
     extracted_df = extracted_df.rename(columns={"network": "Network"})
-    extracted_df["Country"] = iso_code
+    extracted_df["Tag"] = tag
     return extracted_df
 
 
@@ -118,12 +119,12 @@ def load_geolite2_csv(dir_path: str, geolocation: dict):
     ipv4_df = extract_geolite2_cidr(
         f"{dir_path}/GeoLite2-Country-Blocks-IPv4.csv",
         geoid=geo_id,
-        iso_code=geolocation["iso_code"],
+        tag=geolocation["tag"],
     )
     ipv6_df = extract_geolite2_cidr(
         f"{dir_path}/GeoLite2-Country-Blocks-IPv6.csv",
         geoid=geo_id,
-        iso_code=geolocation["iso_code"],
+        tag=geolocation["tag"],
     )
 
     return ipv4_df, ipv6_df
@@ -146,7 +147,7 @@ def read_ito_db(xls_path: str):
 
     ito_df = ito_df[["IPv4"]]
     ito_df = ito_df.rename(columns={"IPv4": "Network"})
-    ito_df["Country"] = "IR"
+    ito_df["Tag"] = "IR"
 
     return ito_df
 
@@ -172,11 +173,11 @@ def expand_df(df: pd.DataFrame):
     """
     # Separate the subnet notation from the IP
     split_list = []
-    for row in zip(df["Network"], df["Country"]):
+    for row in zip(df["Network"], df["Tag"]):
         ip_arr = str(row[0]).split("/")
         ip_addr = ip_arr[0]
         ip_subnet = ip_arr[1]
-        split_list.append({"IP": ip_addr, "Subnet": int(ip_subnet), "Country": row[1]})
+        split_list.append({"IP": ip_addr, "Subnet": int(ip_subnet), "Tag": row[1]})
 
     # Convert all single IPv4s to their last octet's max range
     print("-> Converting /32 IPv4 subnets to /24 to be more expansive")
@@ -188,7 +189,7 @@ def expand_df(df: pd.DataFrame):
             item["IP"] = ".".join(octets_arr)
             item["Subnet"] = 24
         extensive_list.append(
-            {"IP": item["IP"], "Subnet": item["Subnet"], "Country": item["Country"]}
+            {"IP": item["IP"], "Subnet": item["Subnet"], "Tag": item["Tag"]}
         )
 
     # Remove any duplicates resulting from above operations
@@ -198,11 +199,11 @@ def expand_df(df: pd.DataFrame):
     tmp_df = tmp_df.drop_duplicates(subset=["IP"])
 
     result_list = []
-    for row in zip(tmp_df["IP"], tmp_df["Subnet"], tmp_df["Country"]):
+    for row in zip(tmp_df["IP"], tmp_df["Subnet"], tmp_df["Tag"]):
         cidr = f"{row[0]}/{row[1]}"
-        result_list.append({"Network": cidr, "Country": row[2]})
+        result_list.append({"Network": cidr, "Tag": row[2]})
     result_df = pd.DataFrame(result_list)
-    result_df = result_df.sort_values("Country").reset_index(drop=True)
+    result_df = result_df.sort_values("Tag").reset_index(drop=True)
 
     return result_df
 
@@ -215,14 +216,19 @@ def main():
     manual_db_dir = f"{data_dir_path}/Manual"
     dbip_filename = "dbip-country-lite-2023-01.csv"
     ito_excel_filename = "Export-14011020215714.xls"
+
+    aggregated_ipv4_df = pd.DataFrame(columns=["Network", "Tag"])
+    aggregated_ipv6_df = pd.DataFrame(columns=["Network", "Tag"])
+    aggregated_df = pd.DataFrame(columns=["Network", "Tag"])
     geolocations = [
-        {"name": "Iran", "iso_code": "IR"},
-        {"name": "China", "iso_code": "CN"},
-        {"name": "Russia", "iso_code": "RU"},
+        {"name": "Iran", "tag": "IR"},
+        {"name": "China", "tag": "CN"},
+        {"name": "Russia", "tag": "RU"},
     ]
-    aggregated_ipv4_df = pd.DataFrame(columns=["Network", "Country"])
-    aggregated_ipv6_df = pd.DataFrame(columns=["Network", "Country"])
-    aggregated_df = pd.DataFrame(columns=["Network", "Country"])
+    contents = [
+        {"name": "Pornography", "tag": "XXX"},
+        {"name": "Social Media", "tag": "MEDIA"},
+    ]
 
     if os.path.exists(data_dir_path):
         for geolocation in geolocations:
@@ -232,7 +238,7 @@ def main():
             print("\nLoading DBIP database")
             dbip_ipv4, dbip_ipv6 = load_dbip_csv(
                 file_path=f"{data_dir_path}/{dbip_filename}",
-                country_iso_code=geolocation["iso_code"],
+                tag=geolocation["tag"],
             )
             # Convert IP range to CIDR
             dbip_ipv4 = convert_iprange_to_cidr(dbip_ipv4, ipv6=False)
@@ -261,47 +267,83 @@ def main():
             # Load and concat autonomous systems CIDRs CSVs
             print("\nLoading autonomous systems CIDR database")
             if Path(
-                f"{autonomous_systems_db_dir}/ipv4_{geolocation['iso_code']}.csv"
+                f"{autonomous_systems_db_dir}/ipv4_{geolocation['tag']}.csv"
             ).is_file():
                 as_ipv4_df = pd.read_csv(
-                    f"{autonomous_systems_db_dir}/ipv4_{geolocation['iso_code']}.csv"
+                    f"{autonomous_systems_db_dir}/ipv4_{geolocation['tag']}.csv"
                 )
                 print(f"IPv4 entries found: {len(as_ipv4_df)}")
                 aggregated_ipv4_df = concat_df(aggregated_ipv4_df, as_ipv4_df)
 
             if Path(
-                f"{autonomous_systems_db_dir}/ipv6_{geolocation['iso_code']}.csv"
+                f"{autonomous_systems_db_dir}/ipv6_{geolocation['tag']}.csv"
             ).is_file():
                 as_ipv6_df = pd.read_csv(
-                    f"{autonomous_systems_db_dir}/ipv6_{geolocation['iso_code']}.csv"
+                    f"{autonomous_systems_db_dir}/ipv6_{geolocation['tag']}.csv"
                 )
                 print(f"IPv6 entries found: {len(as_ipv6_df)}")
                 aggregated_ipv6_df = concat_df(aggregated_ipv6_df, as_ipv6_df)
 
             # Load manually found CIDRs if available
             print("\nLoading manually found CIDR database")
-            if Path(f"{manual_db_dir}/ipv4_{geolocation['iso_code']}.csv").is_file():
+            if Path(f"{manual_db_dir}/ipv4_{geolocation['tag']}.csv").is_file():
                 manual_ipv4_df = pd.read_csv(
-                    f"{manual_db_dir}/ipv4_{geolocation['iso_code']}.csv"
+                    f"{manual_db_dir}/ipv4_{geolocation['tag']}.csv"
                 )
                 print(f"IPv4 entries found: {len(manual_ipv4_df)}")
                 aggregated_ipv4_df = concat_df(aggregated_ipv4_df, manual_ipv4_df)
 
-            if Path(f"{manual_db_dir}/ipv6_{geolocation['iso_code']}.csv").is_file():
+            if Path(f"{manual_db_dir}/ipv6_{geolocation['tag']}.csv").is_file():
                 manual_ipv6_df = pd.read_csv(
-                    f"{manual_db_dir}/ipv6_{geolocation['iso_code']}.csv"
+                    f"{manual_db_dir}/ipv6_{geolocation['tag']}.csv"
                 )
                 print(f"IPv6 entries found: {len(manual_ipv6_df)}")
                 aggregated_ipv6_df = concat_df(aggregated_ipv6_df, manual_ipv6_df)
 
             # Load ITO database
-            if geolocation["iso_code"] == "IR":
+            if geolocation["tag"] == "IR":
                 print("\nLoading ITO database")
                 ito_df = read_ito_db(f"{data_dir_path}/{ito_excel_filename}")
                 print(f"IPv4 entries found: {len(ito_df)}")
                 aggregated_ipv4_df = pd.concat(
                     [aggregated_ipv4_df, ito_df], ignore_index=True
                 )
+
+        # Content-based aggregation
+        for content in contents:
+            print(f"\n\n*** Aggregating data for {content['name']} ***")
+
+            # Load and concat autonomous systems CIDRs CSVs
+            print("\nLoading autonomous systems CIDR database")
+            if Path(f"{autonomous_systems_db_dir}/ipv4_{content['tag']}.csv").is_file():
+                as_ipv4_df = pd.read_csv(
+                    f"{autonomous_systems_db_dir}/ipv4_{content['tag']}.csv"
+                )
+                print(f"IPv4 entries found: {len(as_ipv4_df)}")
+                aggregated_ipv4_df = concat_df(aggregated_ipv4_df, as_ipv4_df)
+
+            if Path(f"{autonomous_systems_db_dir}/ipv6_{content['tag']}.csv").is_file():
+                as_ipv6_df = pd.read_csv(
+                    f"{autonomous_systems_db_dir}/ipv6_{content['tag']}.csv"
+                )
+                print(f"IPv6 entries found: {len(as_ipv6_df)}")
+                aggregated_ipv6_df = concat_df(aggregated_ipv6_df, as_ipv6_df)
+
+            # Load manually found CIDRs if available
+            print("\nLoading manually found CIDR database")
+            if Path(f"{manual_db_dir}/ipv4_{content['tag']}.csv").is_file():
+                manual_ipv4_df = pd.read_csv(
+                    f"{manual_db_dir}/ipv4_{content['tag']}.csv"
+                )
+                print(f"IPv4 entries found: {len(manual_ipv4_df)}")
+                aggregated_ipv4_df = concat_df(aggregated_ipv4_df, manual_ipv4_df)
+
+            if Path(f"{manual_db_dir}/ipv6_{content['tag']}.csv").is_file():
+                manual_ipv6_df = pd.read_csv(
+                    f"{manual_db_dir}/ipv6_{content['tag']}.csv"
+                )
+                print(f"IPv6 entries found: {len(manual_ipv6_df)}")
+                aggregated_ipv6_df = concat_df(aggregated_ipv6_df, manual_ipv6_df)
 
         # Remove duplicates
         print("\n====================================")

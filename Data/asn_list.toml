@@ -12,187 +12,192 @@
 [[autonomous_systems]]
 name = "CHINANET-BACKBONE"
 asn = "AS4134"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "POWER LINE DATACENTER"
 asn = "AS132839"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "Shenzhen Tencent Computer Systems"
 asn = "AS45090"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "Tencent Building, Kejizhongyi Avenue"
 asn = "AS132203"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Networks Inter-Exchange"
 asn = "AS4847"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "CHINA UNICOM Backbone"
 asn = "AS4837"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Unicom Global"
 asn = "AS10099"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Unicom Zhongwei Cloud"
 asn = "AS10206"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Unicom IP network"
 asn = "AS133118"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Unicom IP network"
 asn = "AS133119"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Unicom IP network"
 asn = "AS134542"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Unicom Guangdong IP network"
 asn = "AS135061"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Unicom Guangdong IP network"
 asn = "AS136958"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Unicom Guangdong IP network"
 asn = "AS136959"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Unicom"
 asn = "AS137539"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Unicom"
 asn = "AS138421"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "UNICOM Ningxia province network"
 asn = "AS140707"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "UNICOM JiangSu WuXi IDC network"
 asn = "AS140717"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "UNICOM JiangSu NanTong IDC network"
 asn = "AS140720"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "UNICOM AnHui province network"
 asn = "AS140726"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "UNICOM Guangxi province network"
 asn = "AS140886"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Unicom Shanghai network"
 asn = "AS17621"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Unicom Guangzhou network"
 asn = "AS17622"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Unicom Shenzen network"
 asn = "AS17623"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Unicom Beijing Province Network "
 asn = "AS4808"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Unicom IP network China169 Guangdong province"
 asn = "AS17816"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Unicom Shanghai FuTe IDC network"
 asn = "AS140979"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "CHINA UNICOM Industrial Internet Backbone "
 asn = "AS9929"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Unicom (Singapore) Operations Pte Ltd"
 asn = "AS132281"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "CHINA UNICOM (EUROPE) OPERATIONS LIMITED"
 asn = "AS197407"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Unicom (Americas) Operations Ltd "
 asn = "AS19174"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Broadband Communications (Hong Kong) Company Limited"
 asn = "AS131314"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Mobile Communications Group Co., Ltd."
 asn = "AS9808"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Mobile International Limited"
 asn = "AS58807"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "Level 30, Tower 1"
 asn = "AS58453"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "China Enterprise ICT Solutions Limited "
 asn = "AS10212"
-country = "CN"
+tag = "CN"
 
 [[autonomous_systems]]
 name = "HUAWEI CLOUDS"
 asn = "AS136907"
-country = "CN"
+tag = "CN"
+
+[[autonomous_systems]]
+name = "Beijing Gu Xiang Information Technology Co.,Ltd."
+asn = "AS24424"
+tag = "CN"
 
 ########################################
 #                                      #
@@ -205,1595 +210,1594 @@ country = "CN"
 [[autonomous_systems]]
 name = "Noyan Abr Arvan Co."
 asn = "AS202468"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Noyan Abr Arvan Co."
 asn = "AS205585"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Noyan Abr Arvan Co."
 asn = "AS208006"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Mobin Net Communication Company"
 asn = "AS47330"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Mobin Net Communication Company"
 asn = "AS50810"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Behsazan Mostamar Keifiat Co."
 asn = "AS210773"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "SEPEHR NET IRANIAN PJSC"
 asn = "AS208560"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Resalat Bank"
 asn = "AS50855"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Caspian Applied Systems Services Supplying Company"
 asn = "AS52155"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "University of Sistan and Baluchestan"
 asn = "AS61209"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Ayandeh Bank IT Infrastructure"
 asn = "AS61250"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Iran Power Plant Projects Management (MAPNA) PJS"
 asn = "AS62039"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Padiz-Daderesan-Company"
 asn = "AS202251"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Iranian Presidential Administration"
 asn = "AS34592"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Asiatech Data Transmission"
 asn = "AS41689"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Telecommunication Infrastructure Company"
 asn = "AS49666"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Telecommunication Infrastructure Company"
 asn = "AS48159"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Rayaneh Danesh Golestan Complex P.J.S. Co."
 asn = "AS47188"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "PressTV"
 asn = "AS42440"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Negin Ertebatate Ava Company PJS"
 asn = "AS56548"
-country = "IR"
+tag = "IR"
 
 ### Extracted from MaxMind DB
 
 [[autonomous_systems]]
 name = "Iran Telecommunication Company"
 asn = "AS58224"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Information Technology Company (ITC)"
 asn = "AS12880"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Pishgaman Toseeh Ertebatat"
 asn = "AS49100"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Shiraz Hamyar Co."
 asn = "AS1756"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Visparad Web Hosting Service LLC"
 asn = "AS3177"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Shabakeh Gostar Shahriyar Co."
 asn = "AS5484"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Shahrood University"
 asn = "AS5627"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Institute for Research in Fundamental Sciences"
 asn = "AS6736"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Khallagh Borhan Market Development for Creative Industries Co"
 asn = "AS8868"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Homaye Jahan Nama Co."
 asn = "AS9147"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Sharif University Of Technology"
 asn = "AS12660"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Tose Masiryabi Shabake Aria"
 asn = "AS12697"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Imam Khomeini International University of Qazvin"
 asn = "AS15907"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Bank Ansar Public JSC"
 asn = "AS16018"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "University of Kashan"
 asn = "AS16286"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "FANAVARAN ENIAC RAYANEH (ENIAC-TECH) (Private JS)"
 asn = "AS16320"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Pars Online PJS"
 asn = "AS16322"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Gostaresh Dade AKO Fanavaran Co LLC"
 asn = "AS21005"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Soroush Rasanheh Company Ltd"
 asn = "AS21341"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Tose'h Fanavari Ertebabat Pasargad Arian Co. PJS"
 asn = "AS24631"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Melli Pakhsh Faravardehay Nafti Iran PJSC"
 asn = "AS24707"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Afranet"
 asn = "AS25184"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Afagh Andish Dadeh Pardis Co. Ltd"
 asn = "AS25264"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "IsIran"
 asn = "AS25306"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "University of Tehran Informatics Center"
 asn = "AS29068"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "IRNA"
 asn = "AS29079"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Bank Saman"
 asn = "AS31182"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "National Iranian Oil Company"
 asn = "AS31303"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Marva System Engineering Technical Company Private Joint Stock"
 asn = "AS31476"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Aria Shatel Company Ltd"
 asn = "AS31549"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Saba Hour Yeganeh Co."
 asn = "AS34412"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Tarashe Sabz Tehran Co. Ltd."
 asn = "AS34513"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Laser Company Ltd"
 asn = "AS34636"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Institute for Research in Fundamental Sciences"
 asn = "AS34837"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Part Financial Information Processing Co."
 asn = "AS34871"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Pishgaman Toseeh Ertebatat Company (Private Joint Stock)"
 asn = "AS34918"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Rahyab Rayaneh Gostar"
 asn = "AS35088"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Middle East Bank (PJSC)"
 asn = "AS35615"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Iran Insurance Joint Stock Company"
 asn = "AS35690"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Sepanta Communication Development Co. Ltd"
 asn = "AS39074"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Andishe Sabz Khazar Co. P.j.s."
 asn = "AS39308"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Hormoz IT & Network Waves Connection Co. (PJS)"
 asn = "AS39364"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Ahang Rayan Malayer Co. LTD"
 asn = "AS39466"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Parvaresh Dadeha Co."
 asn = "AS39501"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Sadad Informatics Corp. Dadehvarzi Sadad Co."
 asn = "AS39571"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Atrin Information & Communications Technology Company PJS"
 asn = "AS39650"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Iran Zamin Bank PJSC"
 asn = "AS41061"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Ertebatat Faragostar Sharg Company, Pvt."
 asn = "AS41152"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Pardazesh Rayaneh Bita Co.Ltd"
 asn = "41856"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Fanava Group"
 asn = "AS41881"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Parsian High Tech Company PJSC"
 asn = "AS42043"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Respina Networks & Beyond PJSC"
 asn = "AS42337"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Behin Ertebatat Faragir Co. Ltd"
 asn = "AS42468"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "IRIB"
 asn = "AS42586"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Marun Petrochemical Co."
 asn = "AS42750"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "National Iranian Oil Company"
 asn = "AS42867"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Research Institute Of Petroleum Industry"
 asn = "AS42907"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Engeneering Designing and Supply the parts of Iran Khodro PJSC"
 asn = "AS42915"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Bank Saderat Iran PJSC"
 asn = "AS42990"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Noavaran Fan Avazeh Co. PJS"
 asn = "AS43211"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Pejvak Ertebatat Atiyeh Roshan Company (P.J.S.)"
 asn = "AS43212"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Pooya Parto Qeshm Cooperative Company"
 asn = "AS43395"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Secure Infrastructure of Transnational Services Company PLC"
 asn = "AS43415"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Saman Electronic Payment Kish PJS"
 asn = "AS43487"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Mehvar Machine"
 asn = "AS43510"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Behpardaz Jahan Co. LLC"
 asn = "AS43528"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Novin Insurance Co. PJS"
 asn = "AS43657"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Asiatech Data Transmission company"
 asn = "AS43754"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Kish Iran Credit Card Corporation"
 asn = "AS44045"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Enteghal Dadeh Mahan Co. PJSC"
 asn = "AS44090"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Iran Cell Service and Communication Company"
 asn = "AS44244"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Sefroyek Pardaz Engineering Co. LTD"
 asn = "AS44285"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Asmanfaraz Sepahan Company (P.J.S)"
 asn = "AS44375"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Ertebatat Sabet Parsian Co. PJS"
 asn = "AS44400"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Rayanmehr Danesh Sanj Company Ltd"
 asn = "AS44531"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Rooyekhat Media Company Ltd"
 asn = "AS44543"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Fannavaran-e Idea Pardaz-e Saba PJSC"
 asn = "AS44932"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Hamara System Tabriz Engineering Company"
 asn = "AS47262"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Patron Technology Persia Ltd"
 asn = "AS47285"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Pardaz Gostar Ertebatat Berelian Limited Liability Company"
 asn = "AS47796"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Bank Pasargad PJSC"
 asn = "AS47817"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Tose'eh Ertebatat Novin Aria Co Pjs"
 asn = "AS47843"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "NOAVARAN SHABAKEH SABZ MEHREGAN (Ltd.)"
 asn = "AS48029"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Asre Pardazeshe Ettelaate Amin Institute"
 asn = "AS48147"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Abr Tose'eh Darya Group Company PJSC"
 asn = "AS48281"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Dadeh Pardazan Sabz Alborz Co.(P.J.S.)"
 asn = "AS48289"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Ariana Gostar Spadana (PJSC)"
 asn = "AS48309"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Hesabgar Pardaz Gharb PJSC"
 asn = "AS48359"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Pars Data Processing Company (LTD)"
 asn = "AS48391"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Bozorg Net-e Aria"
 asn = "AS48431"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Tebyan-e-Noor Cultural-Artistic Institute"
 asn = "AS48434"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Sindad Network Technology Ltd."
 asn = "AS48551"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Shabakeh Gostar Dorna Cooperative Co."
 asn = "AS48592"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Sefroyek Pardaz Engineering Co. LTD"
 asn = "AS48715"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Iran Aseman Airlines plc."
 asn = "AS48762"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Medical Science University Of Kashan"
 asn = "AS48898"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Rasaneh Mehr Vatan Co. PJS"
 asn = "AS48903"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "khalij fars Ettela Resan Company J.S."
 asn = "AS48944"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Polymer Mana Medicine Co."
 asn = "AS49022"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Pishgaman Toseeh Ertebatat Company"
 asn = "AS49100"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Asr-e Enteghal-e Dadeha Company"
 asn = "AS49103"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Atieh Dadeh Pardaz"
 asn = "AS49148"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "FANAVARI HAMRAH PAYDA Co."
 asn = "AS49382"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Fara Negar Pardaz Noor Khuzestan Co.JSP"
 asn = "AS49596"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Shaparak Electronic Card Payment Network Company PJS"
 asn = "AS49796"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Pardazeshgar Ray Azma Co. Ltd."
 asn = "AS49847"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Jahan Ruye Khat"
 asn = "AS49872"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Parvaz System Information Technology Company (Ltd)"
 asn = "AS50057"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Information Technology ArmanNet PLC"
 asn = "AS50259"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Iranian Blood Transfusion Organization (IBTO)"
 asn = "AS50460"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Shabdiz Telecom Network PJSC"
 asn = "AS50530"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Rayaneh Pardazan Baran Co. Ltd."
 asn = "AS50558"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Boomerang Rayaneh"
 asn = "AS50591"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Yaghoot Rayaneh Saveh Cooperative Co."
 asn = "AS50749"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Datis Arian Gheshm Software Company PJSC"
 asn = "AS50795"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Mobin Net Communication Company (Private Joint Stock)"
 asn = "AS50810"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "GOSTARESH-E-ERTEBATAT-E MABNA COMPANY (Private Joint Stock)"
 asn = "AS51074"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "ARAAX DADEH GOSTAR information and communication Development Co."
 asn = "AS51235"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "IRAN POST Company"
 asn = "AS51241"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Orum Torkan Rayaneh LLC"
 asn = "AS51355"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Toos-Ashena Pjsc"
 asn = "AS51411"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Sina Bank"
 asn = "AS51460"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Petiak System Co JSC"
 asn = "AS51469"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Pars Oil & Gas Company (Private Joint Stock)"
 asn = "AS51554"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Eghtesad Novin Bank PJSC"
 asn = "AS51618"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "MAPNA Power Plants Development & Construction PLC"
 asn = "AS51732"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Karafarin Bank Plc."
 asn = "AS51785"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Tehran Regional Electricity Joint Stock Company"
 asn = "AS52196"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Imam Khomeini Relief Foundation IKRF"
 asn = "AS56375"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Dadeh Gostar Asr Novin P.J.S. Co."
 asn = "AS56402"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Organization of Statistics and Information and Communication Technology Of Esfahan Municipal"
 asn = "AS56461"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "PJSC Badr Rayan Jonoob"
 asn = "AS56503"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Tehran Municipality ICT Organization"
 asn = "AS56547"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Tarahan Shabake Sharif LTD"
 asn = "AS56616"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Mehr Ava Gostar Parsian Information Engineering Co.,ltd"
 asn = "AS56703"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Raya Sepehr Vira Data Processing Company Ltd."
 asn = "AS56815"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "KEYANA Information Technology Co. Ltd."
 asn = "AS57067"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Rightel Communication Service Company PJS"
 asn = "AS57218"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Chapar Rasaneh LLC"
 asn = "AS57235"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Maskan Bank"
 asn = "AS57241"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Communications and IT Research Institute"
 asn = "AS57292"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Asan Pardakht Persian Co. LTD"
 asn = "AS57457"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Nazhin Sepahan IT and data processing plc"
 asn = "AS57474"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Faraso Samaneh Pasargad Ltd."
 asn = "AS57497"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "isfahan university of medical sciences & health services"
 asn = "AS57563"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Agriculture bank"
 asn = "AS57574"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Iran Power Generation transmission & Distribution Management Co."
 asn = "AS57577"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Abazarhaye Farsi Shabakeh (Persian Tools) Co.,LTD."
 asn = "AS57687"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Samen Ertebat Asr Co. (P.J.S.)"
 asn = "AS57816"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Sigma IT Infrastructures Development Co. (Ltd.)"
 asn = "AS57986"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Honar Rayaneh Pooya Andisheh PJSC"
 asn = "AS58080"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Trade Promotion Organization Of Iran"
 asn = "AS58125"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Iran Grid Management Company (IGMC)"
 asn = "AS58169"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Rayaneh Gostar Farzanegan Ahwaz Company LTD."
 asn = "AS58256"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Negah Roshan Pars Company (PJS)"
 asn = "AS58262"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Rasana Pishtaz Iranian Service Cooperative Co."
 asn = "AS58303"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Rayaneh Asr-e Ertebatat Bam Technology and Engineering Cooperative Co"
 asn = "AS58331"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Saman Insurance Co. (Public Joint Stock)"
 asn = "AS58333"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Part Net Gostar Ltd."
 asn = "AS58338"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Ravand Tazeh Co,.PJS."
 asn = "AS59431"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Ginernet S.l."
 asn = "AS59432"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "NOAVARAN SHABAKEH SABZ MEHREGAN (Ltd.)"
 asn = "AS59441"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Sari System-e Jonoub Co (Ltd.)"
 asn = "AS59442"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Fars Province University of Medical Science and Health Care Services"
 asn = "AS59506"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Jahrom Univesity Of Medical Sciences"
 asn = "AS59553"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Sari System Bandarabas Company"
 asn = "AS59573"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Dadeh Pardazan Mojtame Hormoz Company Ltd."
 asn = "AS59635"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Pouya shabakeh Asr Co. (LTD.)"
 asn = "AS59691"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Bank of Industry and Mine PJSC"
 asn = "AS59754"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Amirkabir University of Technology"
 asn = "AS59794"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Kashan Ltd"
 asn = "AS59882"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Persia Telecom Company"
 asn = "AS59884"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Shiraz University"
 asn = "AS59962"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Asre Dadeha Asiatech"
 asn = "AS60077"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Naroon Intelligent Communications LTD."
 asn = "AS60138"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Mohammad Sheikhe Sajadie"
 asn = "AS60178"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Tehran Securities Exchange Technology Management Co. PLC"
 asn = "AS60315"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Saipa Corporation Public Joint Stock"
 asn = "AS60340"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Tourism Bank (Public Joint Stock)"
 asn = "AS60407"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Ministry Of Health and Medical Education"
 asn = "AS60562"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Damavand Electronic Card Company (Private J.S)"
 asn = "AS60605"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Rayankadeh Apadana Company Ltd"
 asn = "AS60627"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Pars Parva System LLC"
 asn = "AS60631"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Pars Online PJS"
 asn = "AS60976"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Roshangar Rayaneh Tehran Co. Ltd."
 asn = "AS61055"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Islamic Azad University"
 asn = "AS61129"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Green Web Samaneh Novin Co Ltd"
 asn = "AS61173"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Mashhad Municipality Information Technology and Communications Organization"
 asn = "AS61362"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Tasnim News Agency"
 asn = "AS61386"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Avini cultural and Art Institute"
 asn = "AS62048"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Rayan Ravesh Sena Ltd"
 asn = "AS62196"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Melal Credit Company (Public Joint Stock)"
 asn = "AS62198"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Sina Financial & Investment Holding Co (PJS)"
 asn = "AS62238"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "SINA ATINET Company (Ltd)"
 asn = "AS62250"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Kardox"
 asn = "AS62257"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Ariya Net Abazar Pjsc"
 asn = "AS62284"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Middle East Cloud Processing Co.Ltd."
 asn = "AS62334"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Mizban Web Paytakht Co. Ltd."
 asn = "AS64428"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Evoke Digital Solutions"
 asn = "AS135752"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Mobile Communication Company of Iran PLC"
 asn = "AS197207"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Toloe Rayaneh Loghman Educational and Cultural Co."
 asn = "AS197343"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Padidar Technology Co"
 asn = "AS198357"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Gostaresh Etrtebatate Apadana Ltd."
 asn = "AS199849"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Hamed Kavosh Vira Co. (PJS)"
 asn = "AS200296"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Golrang System Co. P.J.S"
 asn = "AS200312"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Mizban Abri Iman Iranian, LLC"
 asn = "AS200324"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Farzanegan Pars Communications Company PJS"
 asn = "AS200370"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Javid Berbid Mamasani Information Technology Company PJS"
 asn = "AS200406"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Patron Technology Persia Ltd"
 asn = "AS200436"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Razavi Hospital"
 asn = "AS200530"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Gilass Rayaneh Sirjan Co (PJS)"
 asn = "AS200645"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Data Pardaz Afraz Private Private Joint Stock Company"
 asn = "AS200796"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Didehban Net Company PJS"
 asn = "AS201150"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Mizban Dade Pasargad"
 asn = "AS201227"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Islamic Republic of Iran Civil Aviation Authority"
 asn = "AS201442"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Pishgaman Toseeh Fanavari Etelaat Va Ertebatat Jonoub (Joint Stock Company)"
 asn = "AS201540"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Fannavari Etelaate Samane Kavoshgar Ide Ltd."
 asn = "AS201691"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Andisheh Sabz Mahan Co. Ltd"
 asn = "AS201703"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Fanavari Serverpars Argham Gostar Company Ltd."
 asn = "AS201999"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Cooperative Afra ertebatat-e-sabet-e Rasa Co"
 asn = "AS202391"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Noyan Abr Arvan Co. ( Private Joint Stock)"
 asn = "AS202468"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Silverhill Group Holding Ltd"
 asn = "AS202492"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Kharazmi University"
 asn = "AS202571"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Pardis Etelaresan Sepehr Employee's Cooperative Co."
 asn = "AS202601"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Communication Regulatory Authority"
 asn = "AS202735"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Khuzestan Water and Power Authority Co. PJS"
 asn = "AS202788"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Iman Samaneh Sepehr LLC"
 asn = "AS203100"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Kerman University of Medical Sciences"
 asn = "AS203102"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Charisma Financial Information Processing Company PLC"
 asn = "AS203162"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Nahayat Negar Brokerage Co LTD"
 asn = "AS203229"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Islamic Azad University"
 asn = "AS203247"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Paya Kian Parham Co. (PJS)"
 asn = "AS203616"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Imen Sanat Novin Alighapoo Private Joint Stock Company"
 asn = "AS203684"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Mashhad University of Medical Sciences"
 asn = "AS203798"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Toseh Samanehay-e Narmafzari-e Negin (Tosan) PJSC"
 asn = "AS203951"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Yazd University"
 asn = "AS204001"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Paya Bastar Arina Co. Private J.S."
 asn = "AS204105"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Netmihan Communication Company Ltd"
 asn = "AS204213"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Ertebatdehi Ilam Technical & Services Company PJS"
 asn = "AS204499"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Hezardastan Unit Cloud Computing PJSC"
 asn = "AS204533"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Dade Pardazi Mobinhost Co LTD"
 asn = "AS204544"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Toloe Rayaneh Loghman Educational and Cultural Co."
 asn = "AS204650"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Shahrekord University"
 asn = "AS204813"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Shabakieh Isfahan Co PJSC"
 asn = "AS204834"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "University Of Art"
 asn = "AS204904"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Vista Samaneh ASA Company (PJS)"
 asn = "AS204955"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Rahnamoun Rayaneh Robat Karim Company (Ltd.)"
 asn = "AS205229"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Railways of Islamic Republic of IRAN"
 asn = "AS205490"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Rahyab Payam Gostaran Co. P.J.S"
 asn = "AS205521"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Noyan Abr Arvan Co. ( Private Joint Stock)"
 asn = "AS205585"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Iran Health Insurance Organization"
 asn = "AS205622"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Central Insurance of Iran and Insurance Operations JSC"
 asn = "AS205643"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Al-mustafa International University"
 asn = "AS205833"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Export Development Bank of Iran - Public Joint Stock"
 asn = "AS205894"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Farabord Dadeh Haye Iranian Co."
 asn = "AS206065"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Pars Car International Communication Age PJSC"
 asn = "AS206217"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Gostaresh Ertebat Azin Kia Company PJSC"
 asn = "AS206388"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Resaneh Pardaz Sepahan Co"
 asn = "AS206495"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Computer Research Center of Islamic Sciences"
 asn = "AS206596"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Homaye Jahan Nama Co. ( Private Joint Stock)"
 asn = "AS206635"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Statistics and IT Organization Of Tabriz Municiaplity"
 asn = "AS206692"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Fereidoon Hedayatinia"
 asn = "AS206862"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Advanced Communications Technology Ltd."
 asn = "AS207057"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Dadeh Gostar Parmis PJS Company"
 asn = "AS207125"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Ertebat Gostare Nakhl Jonoob Company PJSC"
 asn = "AS207141"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Cooperative Afra ertebatat-e-sabet-e Rasa Co"
 asn = "AS207381"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Day Telecom Company (ltd.)"
 asn = "AS207655"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Pars Databan Co"
 asn = "AS207680"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Sourena Pardazesh Arya Software co. LLC"
 asn = "AS207796"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Eligasht Air Travel & Tourist Services Company Limited"
 asn = "AS208072"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Pars Shabakeh Azarakhsh LLC"
 asn = "AS208161"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Pasargad Bank PJSC"
 asn = "AS208493"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Dade Pardazi Mobinhost Co LTD"
 asn = "AS208555"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Shahr Bank PJSC"
 asn = "AS208651"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Central Securities Depository of Iran Public Company"
 asn = "AS208703"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Navaco information technology company (P.J.S.)"
 asn = "AS208742"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Padideh Sazan Poshtvar Co. PJS"
 asn = "AS209279"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Kish Cell Pars Co. (PJS)"
 asn = "AS209596"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Toesegaran Shabakeh Arseh Novin Ltd"
 asn = "AS209836"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Azarakhsh Ava-e Ahvaz Co"
 asn = "AS210392"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Parsway Shomal Company Ltd"
 asn = "AS210474"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Khatam Academic Institute"
 asn = "AS210583"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Ayandeh Gostar Bastak Co. (Private Joint Stock)"
 asn = "AS210818"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Towse'e Saman Information Technology Co. PJS"
 asn = "AS210877"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Tehran Stock Exchange Company (Public Joint Stock)"
 asn = "AS211081"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Fanavaran Nicsepehr Zenderood Ltd."
 asn = "AS211408"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Behsazan Mellat Company PJS"
 asn = "AS211491"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Tose Abzar Bazar Sarmayeh PJSC"
 asn = "AS211583"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Negin Narmafzar Asak Research and Information Cooperative Company"
 asn = "AS211627"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Parsway Shomal Company Ltd"
 asn = "AS212036"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "FanAvaran Imen Aria Co. LLc"
 asn = "AS212040"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Dadeh Rayanesh Abri Pardis Private Joint Stock Company"
 asn = "AS212076"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Netafraz Iranian Ltd."
 asn = "AS212216"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Dade Pardazan Fahim Shahin Shahr (Ltd)"
 asn = "AS212296"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Barmak Khotvaneh"
 asn = "AS212476"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Ava Katan Qeshm Co PJSC"
 asn = "AS212631"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Sepanta Server Iranian Company (Ltd.)"
 asn = "AS212847"
-country = "IR"
+tag = "IR"
 
 [[autonomous_systems]]
 name = "Lamerd Information & Communication Technology Co.,ltd"
 asn = "AS212939"
-country = "IR"
-
+tag = "IR"
 
 
 ########################################
@@ -1806,4 +1810,113 @@ country = "IR"
 [[autonomous_systems]]
 name = "LLC EGS-Telecom"
 asn = "AS60072"
-country = "RU"
+tag = "RU"
+
+
+########################################
+#                                      #
+#            CONTENT-BASED             #
+#                                      #
+########################################
+
+# Pornogoraphy
+[[autonomous_systems]]
+name = "Reflected Networks, Inc. (Adult Content)"
+asn = "AS29789"
+tag = "XXX"
+
+# Social Media and Text Messengers
+[[autonomous_systems]]
+name = "Telegram Messenger Inc."
+asn = "AS62041"
+tag = "MEDIA"
+
+[[autonomous_systems]]
+name = "Twitter Inc."
+asn = "AS13414"
+tag = "MEDIA"
+
+[[autonomous_systems]]
+name = "Twitter Inc."
+asn = "AS13414"
+tag = "MEDIA"
+
+[[autonomous_systems]]
+name = "Twitter Inc."
+asn = "AS35995"
+tag = "MEDIA"
+
+[[autonomous_systems]]
+name = "Twitter Inc."
+asn = "AS63179"
+tag = "MEDIA"
+
+[[autonomous_systems]]
+name = "Facebook, Inc."
+asn = "AS32934"
+tag = "MEDIA"
+
+[[autonomous_systems]]
+name = "WhatsApp"
+asn = "AS11917"
+tag = "MEDIA"
+
+[[autonomous_systems]]
+name = "Google LLC"
+asn = "AS15169"
+tag = "MEDIA"
+
+[[autonomous_systems]]
+name = "Google LLC"
+asn = "AS36040"
+tag = "MEDIA"
+
+[[autonomous_systems]]
+name = "Google LLC"
+asn = "AS36384"
+tag = "MEDIA"
+
+[[autonomous_systems]]
+name = "Google LLC"
+asn = "AS36492"
+tag = "MEDIA"
+
+[[autonomous_systems]]
+name = "Google LLC"
+asn = "AS395973"
+tag = "MEDIA"
+
+[[autonomous_systems]]
+name = "Google LLC"
+asn = "AS396982"
+tag = "MEDIA"
+
+[[autonomous_systems]]
+name = "Google Asia Pacific Pte. Ltd. "
+asn = "AS139070"
+tag = "MEDIA"
+
+[[autonomous_systems]]
+name = "Google Asia Pacific Pte. Ltd. "
+asn = "AS139190"
+tag = "MEDIA"
+
+[[autonomous_systems]]
+name = "Google Access LLC"
+asn = "AS32381"
+tag = "MEDIA"
+
+[[autonomous_systems]]
+name = "Google Switzerland GmbH"
+asn = "AS41264"
+tag = "MEDIA"
+
+[[autonomous_systems]]
+name = "Google Ireland Limited"
+asn = "AS43515"
+tag = "MEDIA"
+
+[[autonomous_systems]]
+name = "AS number for Google Corporate Network in APAC"
+asn = "AS45566"
+tag = "MEDIA"

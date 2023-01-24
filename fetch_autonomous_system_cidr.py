@@ -49,15 +49,15 @@ def fetch_cidrs(asn_dict: dict):
 
     ipv4_df = pd.DataFrame(result_ipv4, columns=["Network"])
     ipv6_df = pd.DataFrame(result_ipv6, columns=["Network"])
-    ipv4_df["Country"] = asn_dict["country"]
-    ipv6_df["Country"] = asn_dict["country"]
+    ipv4_df["Tag"] = asn_dict["tag"]
+    ipv6_df["Tag"] = asn_dict["tag"]
 
     return ipv4_df, ipv6_df
 
 
 def main():
     output_dir = "./Data/AS_CIDRs"
-    country_iso_codes = ["CN", "IR", "RU"]
+    tags = ["CN", "IR", "RU", "XXX", "MEDIA"]
     asn_filename = "./Data/asn_list.toml"
     cidrs_ivp4_df = pd.DataFrame()
     cidrs_ivp6_df = pd.DataFrame()
@@ -68,11 +68,11 @@ def main():
         else:
             asn_list = tomllib.load(asn_file)["autonomous_systems"]
 
-    for country in country_iso_codes:
-        print(f"\n\n--- Fetching Autonomous System CIDRs for {country} ---\n\n")
-        country_asn_list = [item for item in asn_list if item["country"] == country]
+    for tag in tags:
+        print(f"\n\n--- Fetching Autonomous System CIDRs tagged as '{tag}' ---\n\n")
+        autonomous_systems = [item for item in asn_list if item["tag"] == tag]
 
-        for item in country_asn_list:
+        for item in autonomous_systems:
             ipv4_df, ipv6_df = fetch_cidrs(asn_dict=item)
             cidrs_ivp4_df = pd.concat([cidrs_ivp4_df, ipv4_df], ignore_index=True)
             cidrs_ivp6_df = pd.concat([cidrs_ivp6_df, ipv6_df], ignore_index=True)
@@ -85,8 +85,8 @@ def main():
 
         # Save to CSV
         makedirs(output_dir, exist_ok=True)
-        cidrs_ivp4_df.to_csv(f"{output_dir}/ipv4_{country}.csv", index=False)
-        cidrs_ivp6_df.to_csv(f"{output_dir}/ipv6_{country}.csv", index=False)
+        cidrs_ivp4_df.to_csv(f"{output_dir}/ipv4_{tag}.csv", index=False)
+        cidrs_ivp6_df.to_csv(f"{output_dir}/ipv6_{tag}.csv", index=False)
 
 
 if __name__ == "__main__":
