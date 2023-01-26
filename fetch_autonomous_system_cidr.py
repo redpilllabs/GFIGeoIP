@@ -61,8 +61,6 @@ def main():
     # YY: Tag for social medias
     tags = ["CN", "IR", "RU", "XX", "YY"]
     asn_filename = "./Data/asn_list.toml"
-    cidrs_ivp4_df = pd.DataFrame()
-    cidrs_ivp6_df = pd.DataFrame()
 
     with open(asn_filename, mode="rb") as asn_file:
         if sys.version_info[1] < 11:
@@ -71,6 +69,8 @@ def main():
             asn_list = tomllib.load(asn_file)["autonomous_systems"]
 
     for tag in tags:
+        cidrs_ivp4_df = pd.DataFrame()
+        cidrs_ivp6_df = pd.DataFrame()
         print(f"\n\n--- Fetching Autonomous System CIDRs tagged as '{tag}' ---\n\n")
         autonomous_systems = [item for item in asn_list if item["tag"] == tag]
 
