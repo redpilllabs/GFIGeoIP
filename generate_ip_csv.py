@@ -226,8 +226,8 @@ def main():
         {"name": "Russia", "tag": "RU"},
     ]
     contents = [
-        {"name": "Pornography", "tag": "XXX"},
-        {"name": "Social Media", "tag": "MEDIA"},
+        {"name": "Pornography", "tag": "XX"},
+        {"name": "Social Media", "tag": "YY"},
     ]
 
     if os.path.exists(data_dir_path):

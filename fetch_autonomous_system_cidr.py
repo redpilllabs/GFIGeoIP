@@ -57,7 +57,9 @@ def fetch_cidrs(asn_dict: dict):
 
 def main():
     output_dir = "./Data/AS_CIDRs"
-    tags = ["CN", "IR", "RU", "XXX", "MEDIA"]
+    # XX: Tag for pornography
+    # YY: Tag for social medias
+    tags = ["CN", "IR", "RU", "XX", "YY"]
     asn_filename = "./Data/asn_list.toml"
     cidrs_ivp4_df = pd.DataFrame()
     cidrs_ivp6_df = pd.DataFrame()

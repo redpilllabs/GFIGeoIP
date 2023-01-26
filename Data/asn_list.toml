@@ -1823,100 +1823,100 @@ tag = "RU"
 [[autonomous_systems]]
 name = "Reflected Networks, Inc. (Adult Content)"
 asn = "AS29789"
-tag = "XXX"
+tag = "XX"
 
 # Social Media and Text Messengers
 [[autonomous_systems]]
 name = "Telegram Messenger Inc."
 asn = "AS62041"
-tag = "MEDIA"
+tag = "YY"
 
 [[autonomous_systems]]
 name = "Twitter Inc."
 asn = "AS13414"
-tag = "MEDIA"
+tag = "YY"
 
 [[autonomous_systems]]
 name = "Twitter Inc."
 asn = "AS13414"
-tag = "MEDIA"
+tag = "YY"
 
 [[autonomous_systems]]
 name = "Twitter Inc."
 asn = "AS35995"
-tag = "MEDIA"
+tag = "YY"
 
 [[autonomous_systems]]
 name = "Twitter Inc."
 asn = "AS63179"
-tag = "MEDIA"
+tag = "YY"
 
 [[autonomous_systems]]
 name = "Facebook, Inc."
 asn = "AS32934"
-tag = "MEDIA"
+tag = "YY"
 
 [[autonomous_systems]]
 name = "WhatsApp"
 asn = "AS11917"
-tag = "MEDIA"
+tag = "YY"
 
 [[autonomous_systems]]
 name = "Google LLC"
 asn = "AS15169"
-tag = "MEDIA"
+tag = "YY"
 
 [[autonomous_systems]]
 name = "Google LLC"
 asn = "AS36040"
-tag = "MEDIA"
+tag = "YY"
 
 [[autonomous_systems]]
 name = "Google LLC"
 asn = "AS36384"
-tag = "MEDIA"
+tag = "YY"
 
 [[autonomous_systems]]
 name = "Google LLC"
 asn = "AS36492"
-tag = "MEDIA"
+tag = "YY"
 
 [[autonomous_systems]]
 name = "Google LLC"
 asn = "AS395973"
-tag = "MEDIA"
+tag = "YY"
 
 [[autonomous_systems]]
 name = "Google LLC"
 asn = "AS396982"
-tag = "MEDIA"
+tag = "YY"
 
 [[autonomous_systems]]
 name = "Google Asia Pacific Pte. Ltd. "
 asn = "AS139070"
-tag = "MEDIA"
+tag = "YY"
 
 [[autonomous_systems]]
 name = "Google Asia Pacific Pte. Ltd. "
 asn = "AS139190"
-tag = "MEDIA"
+tag = "YY"
 
 [[autonomous_systems]]
 name = "Google Access LLC"
 asn = "AS32381"
-tag = "MEDIA"
+tag = "YY"
 
 [[autonomous_systems]]
 name = "Google Switzerland GmbH"
 asn = "AS41264"
-tag = "MEDIA"
+tag = "YY"
 
 [[autonomous_systems]]
 name = "Google Ireland Limited"
 asn = "AS43515"
-tag = "MEDIA"
+tag = "YY"
 
 [[autonomous_systems]]
 name = "AS number for Google Corporate Network in APAC"
 asn = "AS45566"
-tag = "MEDIA"
+tag = "YY"
