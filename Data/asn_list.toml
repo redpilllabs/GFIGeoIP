@@ -7,8 +7,6 @@
 #                                      #
 ########################################
 
-# China's potentially malicious actors
-
 [[autonomous_systems]]
 name = "CHINANET-BACKBONE"
 asn = "AS4134"
@@ -197,6 +195,16 @@ tag = "CN"
 [[autonomous_systems]]
 name = "Beijing Gu Xiang Information Technology Co.,Ltd."
 asn = "AS24424"
+tag = "CN"
+
+[[autonomous_systems]]
+name = "CHINANET-SHAANXI"
+asn = "AS134768"
+tag = "CN"
+
+[[autonomous_systems]]
+name = "China Telecom (Group)"
+asn = "AS4835"
 tag = "CN"
 
 ########################################
