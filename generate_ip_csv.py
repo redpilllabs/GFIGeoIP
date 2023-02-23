@@ -4,15 +4,12 @@
 # Usage is subject to EULA available from https://www.maxmind.com/en/geolite2/eula
 
 
-import glob
 import ipaddress
 import os
-from importlib.resources import contents
 from pathlib import Path
 
 import pandas as pd
 from bs4 import BeautifulSoup
-from genericpath import isfile
 
 
 def convert_iprange_to_cidr(df: pd.DataFrame, ipv6=False):
