@@ -211,7 +211,7 @@ def main():
     geolite2_db_dir = f"{data_dir_path}/GeoLite2"
     autonomous_systems_db_dir = f"{data_dir_path}/AS_CIDRs"
     manual_db_dir = f"{data_dir_path}/Manual"
-    dbip_filename = "dbip-country-lite-2023-01.csv"
+    dbip_filename = "dbip-country-lite-2023-02.csv"
     ito_excel_filename = "Export-14011020215714.xls"
 
     aggregated_ipv4_df = pd.DataFrame(columns=["Network", "Tag"])
