@@ -142,8 +142,13 @@ def read_ito_db(xls_path: str):
         soup = BeautifulSoup(xml_file.read(), "html.parser")
         ito_df = pd.read_html(soup.decode_contents())[0]
 
-    ito_df = ito_df[["IPv4"]]
-    ito_df = ito_df.rename(columns={"IPv4": "Network"})
+    # Websites' DB and messengers' DB have different column names! Typical IR!
+    if "IP" in ito_df.columns:
+        ito_df = ito_df.rename(columns={"IP": "Network"})
+    elif "IPv4" in ito_df.columns:
+        ito_df = ito_df.rename(columns={"IPv4": "Network"})
+
+    ito_df = ito_df[["Network"]]
     ito_df["Tag"] = "IR"
 
     return ito_df
@@ -207,12 +212,13 @@ def expand_df(df: pd.DataFrame):
 
 def main():
     export_dir_path = "./Aggregated_Data"
-    data_dir_path = "./Data"
+    data_dir_path = "./Data_Source"
     geolite2_db_dir = f"{data_dir_path}/GeoLite2"
     autonomous_systems_db_dir = f"{data_dir_path}/AS_CIDRs"
     manual_db_dir = f"{data_dir_path}/Manual"
     dbip_filename = "dbip-country-lite-2023-02.csv"
-    ito_excel_filename = "Export-14011020215714.xls"
+    ito_website_excel_filename = "Export-14011212203139.xls"
+    ito_im_excel_filename = "Export-14011212203100.xls"
 
     aggregated_ipv4_df = pd.DataFrame(columns=["Network", "Tag"])
     aggregated_ipv6_df = pd.DataFrame(columns=["Network", "Tag"])
@@ -299,8 +305,15 @@ def main():
 
             # Load ITO database
             if geolocation["tag"] == "IR":
-                print("\nLoading ITO database")
-                ito_df = read_ito_db(f"{data_dir_path}/{ito_excel_filename}")
+                print("\nLoading ITO website database")
+                ito_df = read_ito_db(f"{data_dir_path}/{ito_website_excel_filename}")
+                print(f"IPv4 entries found: {len(ito_df)}")
+                aggregated_ipv4_df = pd.concat(
+                    [aggregated_ipv4_df, ito_df], ignore_index=True
+                )
+
+                print("\nLoading ITO instant messengers database")
+                ito_df = read_ito_db(f"{data_dir_path}/{ito_im_excel_filename}")
                 print(f"IPv4 entries found: {len(ito_df)}")
                 aggregated_ipv4_df = pd.concat(
                     [aggregated_ipv4_df, ito_df], ignore_index=True
