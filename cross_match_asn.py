@@ -5,8 +5,8 @@ import pandas as pd
 
 def main():
     geo_id = 130758
-    asn_df = pd.read_csv("./Data/GeoLite2-ASN-Blocks-IPv4.csv")
-    cidr_df = pd.read_csv("./Data/GeoLite2-Country-Blocks-IPv4.csv")
+    asn_df = pd.read_csv("./Data_Source/GeoLite2-ASN-Blocks-IPv4.csv")
+    cidr_df = pd.read_csv("./Data_Source/GeoLite2-Country-Blocks-IPv4.csv")
 
     print("Filtering CIDRs based on Geo ID...")
     cidr_df = cidr_df.loc[

@@ -56,11 +56,11 @@ def fetch_cidrs(asn_dict: dict):
 
 
 def main():
-    output_dir = "./Data/AS_CIDRs"
+    output_dir = "./Data_Source/AS_CIDRs"
     # XX: Tag for pornography
     # YY: Tag for social medias
     tags = ["CN", "IR", "RU", "XX", "YY"]
-    asn_filename = "./Data/asn_list.toml"
+    asn_filename = "./Data_Source/asn_list.toml"
 
     with open(asn_filename, mode="rb") as asn_file:
         if sys.version_info[1] < 11:
