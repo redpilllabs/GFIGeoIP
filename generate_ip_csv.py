@@ -9,7 +9,20 @@ import os
 from pathlib import Path
 
 import pandas as pd
+import requests
 from bs4 import BeautifulSoup
+
+
+def get_ip_list_txt(url: str):
+    ip_list = []
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+    }
+    response = requests.get(url, headers=headers)
+    data = response.content.decode()
+    for entry in data.split():
+        ip_list.append(entry)
+    return ip_list
 
 
 def convert_iprange_to_cidr(df: pd.DataFrame, ipv6=False):
@@ -232,6 +245,26 @@ def main():
         {"name": "Pornography", "tag": "XX"},
         {"name": "Social Media", "tag": "YY"},
     ]
+
+    # First off append the Cloudflare network IPs
+    cf_ipv4_list = get_ip_list_txt("https://www.cloudflare.com/ips-v4")
+    if cf_ipv4_list:
+        cf_ipv4_df = pd.DataFrame(cf_ipv4_list, columns=["Network"])
+        cf_ipv4_df["Tag"] = "CF"
+        aggregated_ipv4_df = concat_df(aggregated_ipv4_df, cf_ipv4_df)
+
+    cf_ipv6_list = get_ip_list_txt("https://www.cloudflare.com/ips-v6")
+    if cf_ipv6_list:
+        cf_ipv6_df = pd.DataFrame(cf_ipv6_list, columns=["Network"])
+        cf_ipv6_df["Tag"] = "CF"
+        aggregated_ipv6_df = concat_df(aggregated_ipv6_df, cf_ipv6_df)
+
+    # Append ArvanCloud network as IR
+    ac_ipv4_list = get_ip_list_txt("https://www.arvancloud.ir/fa/ips.txt")
+    if ac_ipv4_list:
+        ac_ipv4_df = pd.DataFrame(ac_ipv4_list, columns=["Network"])
+        ac_ipv4_df["Tag"] = "IR"
+        aggregated_ipv4_df = concat_df(aggregated_ipv4_df, ac_ipv4_df)
 
     if os.path.exists(data_dir_path):
         for geolocation in geolocations:
