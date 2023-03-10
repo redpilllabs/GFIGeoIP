@@ -195,10 +195,10 @@ def expand_df(df: pd.DataFrame):
         split_list.append({"IP": ip_addr, "Subnet": int(ip_subnet), "Tag": row[1]})
 
     # Convert all single IPv4s to their last octet's max range
-    print("-> Converting /32 IPv4 subnets to /24 to be more expansive")
+    print("-> Converting smaller subnets to /24 to cover the whole C class network")
     extensive_list = []
     for item in split_list:
-        if "." in item["IP"] and item["Subnet"] == 32:
+        if "." in item["IP"] and item["Subnet"] >= 25 and item["Subnet"] <= 32:
             octets_arr = item["IP"].split(".")
             octets_arr[3] = "0"
             item["IP"] = ".".join(octets_arr)
