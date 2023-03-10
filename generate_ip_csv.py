@@ -198,7 +198,7 @@ def expand_df(df: pd.DataFrame):
     print("-> Converting smaller subnets to /24 to cover the whole C class network")
     extensive_list = []
     for item in split_list:
-        if "." in item["IP"] and item["Subnet"] >= 25 and item["Subnet"] <= 32:
+        if "." in item["IP"] and 25 <= item["Subnet"] <= 32:
             octets_arr = item["IP"].split(".")
             octets_arr[3] = "0"
             item["IP"] = ".".join(octets_arr)
@@ -208,7 +208,7 @@ def expand_df(df: pd.DataFrame):
         )
 
     # Remove any duplicates resulting from above operations
-    print("-> Dropping duplicate IPs but with higher subnets")
+    print("-> Dropping duplicate networks but with higher subnets")
     tmp_df = pd.DataFrame(extensive_list)
     tmp_df = tmp_df.sort_values("Subnet", ascending=True)
     tmp_df = tmp_df.drop_duplicates(subset=["IP"])
