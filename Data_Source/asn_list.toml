@@ -207,6 +207,12 @@ name = "China Telecom (Group)"
 asn = "AS4835"
 tag = "CN"
 
+# The following autnomous systems seem to be operated by GFW but located overseas
+[[autonomous_systems]]
+name = "Constantine Cybersecurity Ltd"
+asn = "AS211298"
+tag = "CN"
+
 ########################################
 #                                      #
 #               IRAN                   #
