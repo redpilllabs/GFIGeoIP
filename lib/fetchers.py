@@ -6,6 +6,7 @@ from os import makedirs
 from time import sleep
 
 import pandas as pd
+import requests
 
 # Check for Tomli
 try:
@@ -20,7 +21,7 @@ except ModuleNotFoundError:
         exit(0)
 
 
-def fetch_cidrs(asn_dict: dict):
+def fetch_whois_cidrs(asn_dict: dict):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect(("whois.radb.net", 43))
         print(f"Fetching CIDRs for {asn_dict['name']} ...")
@@ -54,19 +55,32 @@ def fetch_cidrs(asn_dict: dict):
 
     return ipv4_df, ipv6_df
 
+def fetch_remote_ip_list(url: str, network_tag: str):
+    ip_list = []
+    df = pd.DataFrame()
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+    }
+    response = requests.get(url, headers=headers)
+    data = response.content.decode()
+    for entry in data.split():
+        ip_list.append(entry)
+    if ip_list:
+        df = pd.DataFrame(ip_list, columns=["Network"])
+        df["Tag"] = network_tag
+    return df
 
-def main():
-    output_dir = "./Data_Source/AS_CIDRs"
-    # XX: Tag for pornography
-    # YY: Tag for social medias
-    tags = ["CN", "IR", "RU", "XX", "YY"]
-    asn_filename = "./Data_Source/asn_list.toml"
 
-    with open(asn_filename, mode="rb") as asn_file:
+def fetch_autonomous_system_cidrs(asn_list_path: str, output_dir: str):
+    with open(asn_list_path, mode="rb") as asn_file:
         if sys.version_info[1] < 11:
             asn_list = tomli.load(asn_file)["autonomous_systems"]
+            tags = [x['tag'] for x in asn_list]
+            tags = set(tags)
         else:
             asn_list = tomllib.load(asn_file)["autonomous_systems"]
+            tags = [x['tag'] for x in asn_list]
+            tags = set(tags)
 
     for tag in tags:
         cidrs_ivp4_df = pd.DataFrame()
@@ -75,7 +89,7 @@ def main():
         autonomous_systems = [item for item in asn_list if item["tag"] == tag]
 
         for item in autonomous_systems:
-            ipv4_df, ipv6_df = fetch_cidrs(asn_dict=item)
+            ipv4_df, ipv6_df = fetch_whois_cidrs(asn_dict=item)
             cidrs_ivp4_df = pd.concat([cidrs_ivp4_df, ipv4_df], ignore_index=True)
             cidrs_ivp6_df = pd.concat([cidrs_ivp6_df, ipv6_df], ignore_index=True)
             # Take some rest
@@ -89,7 +103,3 @@ def main():
         makedirs(output_dir, exist_ok=True)
         cidrs_ivp4_df.to_csv(f"{output_dir}/ipv4_{tag}.csv", index=False)
         cidrs_ivp6_df.to_csv(f"{output_dir}/ipv6_{tag}.csv", index=False)
-
-
-if __name__ == "__main__":
-    main()
