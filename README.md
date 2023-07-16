@@ -9,7 +9,6 @@ Currently the aggregated database contains the following:
 - CN -> China
 - RU -> Russia
 - CF -> Cloudflare
-- YY -> Social Networks
 - XX -> Adult Hosting Websites
 ```
 
