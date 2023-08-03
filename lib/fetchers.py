@@ -62,7 +62,7 @@ def fetch_remote_ip_list(url: str, network_tag: str):
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
     }
     response = requests.get(url, headers=headers)
-    data = response.content.decode()
+    response = requests.get(url, headers=headers, proxies=proxies)
     for entry in data.split():
         ip_list.append(entry)
     if ip_list:
