@@ -1813,20 +1813,6 @@ name = "Lamerd Information & Communication Technology Co.,ltd"
 asn = "AS212939"
 tag = "IR"
 
-
-########################################
-#                                      #
-#               RUSSIA                 #
-#                                      #
-########################################
-
-# Russia's malicious actors
-[[autonomous_systems]]
-name = "LLC EGS-Telecom"
-asn = "AS60072"
-tag = "RU"
-
-
 ########################################
 #                                      #
 #            CONTENT-BASED             #

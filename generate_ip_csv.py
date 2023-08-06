@@ -32,13 +32,16 @@ def main():
     geo_networks = [
         {"name": "China", "tag": "CN"},
         {"name": "Iran", "tag": "IR"},
-        {"name": "Russia", "tag": "RU"},
     ]
     content_networks = [
         {"name": "Pornography", "tag": "XX"}
     ]
 
-    # Fetch CIDRs for every listed autonomous systems listed in the asn_list.toml
+    fetch_autonomous_system_cidrs(
+        asn_list_path="./Data_Source/asn_list.toml",
+        output_dir="./Data_Source/AS_CIDRs",
+        proxies=proxies,
+    )
     fetch_autonomous_system_cidrs(asn_list_path="./Data_Source/asn_list.toml",output_dir="./Data_Source/AS_CIDRs")
 
     # First off append the Cloudflare network IPs
