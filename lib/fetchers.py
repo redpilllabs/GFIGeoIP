@@ -1,11 +1,11 @@
 #!/usr/bin/env python
+import socket
 import sys
 from os import makedirs
 from time import sleep
 
 import pandas as pd
 import requests
-from bs4 import BeautifulSoup
 
 # Check for Tomli
 try:
@@ -18,66 +18,6 @@ except ModuleNotFoundError:
             "Module 'tomli' was not found! [pip install tomli] (only Python versions older than 3.11)\n"
         )
         exit(0)
-
-
-def fetch_ipinfo_cidrs(asn_dict: dict, proxies=None):
-    ipv4_df = pd.DataFrame(columns=["Network", "Tag"])
-    ipv6_df = pd.DataFrame(columns=["Network", "Tag"])
-
-    url = "https://ipinfo.io/AS41689"
-
-    # Send a GET request to fetch the HTML content of the page
-    headers = {
-        "Host": "ipinfo.io",
-        "User-Agent": "Mozilla/5.0 (X11; Linux x86\_64; rv:109.0) Gecko/20100101 Firefox/116.0",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,\*/\*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.5",
-        "Accept-Encoding": "gzip, deflate, br",
-        "DNT": "1",
-        "Connection": "keep-alive",
-        "Cookie": "flash=",
-        "Upgrade-Insecure-Requests": "1",
-        "Sec-Fetch-Dest": "document",
-        "Sec-Fetch-Mode": "navigate",
-        "Sec-Fetch-Site": "same-origin",
-        "Sec-Fetch-User": "?1",
-        "Pragma": "no-cache",
-        "Cache-Control": "no-cache",
-    }
-
-    print(f"Fetching CIDRs for {asn_dict['name']} ...")
-    response = requests.get(
-        url,
-        headers=headers,
-        proxies=proxies,
-    )
-
-    if response.status_code != 200:
-        print(
-            f"Failed to fetch IP ranges for {asn_dict['name']}. Status code: {response.status_code} {response.reason}"
-        )
-    else:
-        soup = BeautifulSoup(response.content, "html.parser")
-        ipv4_ranges_table = soup.select_one(
-            "#ipv4-data > table:nth-child(1) > tbody:nth-child(2)"
-        )
-        ipv6_ranges_table = soup.select_one(
-            "#ipv6-data > table:nth-child(1) > tbody:nth-child(2)"
-        )
-
-        if ipv4_ranges_table:
-            ipv4_ranges = ipv4_ranges_table.find_all("tr")
-            ipv4_ranges = sorted(list(set(ipv4_ranges)))
-            ipv4_df = pd.DataFrame(ipv4_ranges, columns=["Network"])
-            ipv4_df["Tag"] = asn_dict["tag"]
-
-        if ipv6_ranges_table:
-            ipv6_ranges = ipv6_ranges_table.find_all("tr")
-            ipv6_ranges = sorted(list(set(ipv6_ranges)))
-            ipv6_df = pd.DataFrame(ipv6_ranges, columns=["Network"])
-            ipv6_df["Tag"] = asn_dict["tag"]
-
-        return ipv4_df, ipv6_df
 
 
 def fetch_remote_ip_list(url: str, network_tag: str, proxies=None):
@@ -96,7 +36,49 @@ def fetch_remote_ip_list(url: str, network_tag: str, proxies=None):
     return df
 
 
-def fetch_autonomous_system_cidrs(asn_list_path: str, output_dir: str, proxies=None):
+def fetch_whois_cidrs(asn_dict: dict):
+    ipv4_data = ""
+    ipv6_data = ""
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        try:
+            s.connect(("whois.radb.net", 43))
+            print(f"Fetching CIDRs for {asn_dict['name']} ...")
+            s.sendall(b"-i origin " + bytes(asn_dict["asn"], encoding="utf-8") + b"\n")
+            while True:
+                data = s.recv(16).decode("utf8")
+                if not data:
+                    break
+                ipv4_data += data
+                ipv6_data += data
+        except Exception as e:
+            print(
+                f"Unexpected error occurred while fetching CIDRs for {asn_dict['name']}: {e}"
+            )
+
+    ipv4_data = [i for i in ipv4_data.split("\n") if i.startswith("route:")]
+    ipv6_data = [i for i in ipv6_data.split("\n") if i.startswith("route6:")]
+
+    result_ipv4 = []
+    result_ipv6 = []
+    for item in ipv4_data:
+        result_ipv4.append(item.replace("route:", "").strip())
+    for item in ipv6_data:
+        result_ipv6.append(item.replace("route6:", "").strip())
+
+    result_ipv4 = sorted(list(set(result_ipv4)))
+    result_ipv6 = sorted(list(set(result_ipv6)))
+
+    print(f"Found {len(result_ipv4)} IPv4 CIDRs and {len(result_ipv6)} IPv6 CIDRs\n")
+
+    ipv4_df = pd.DataFrame(result_ipv4, columns=["Network"])
+    ipv6_df = pd.DataFrame(result_ipv6, columns=["Network"])
+    ipv4_df["Tag"] = asn_dict["tag"]
+    ipv6_df["Tag"] = asn_dict["tag"]
+
+    return ipv4_df, ipv6_df
+
+
+def fetch_autonomous_system_cidrs(asn_list_path: str, output_dir: str):
     with open(asn_list_path, mode="rb") as asn_file:
         if sys.version_info[1] < 11:
             asn_list = tomli.load(asn_file)["autonomous_systems"]
@@ -114,11 +96,10 @@ def fetch_autonomous_system_cidrs(asn_list_path: str, output_dir: str, proxies=N
         autonomous_systems = [item for item in asn_list if item["tag"] == tag]
 
         for item in autonomous_systems:
-            ipv4_df, ipv6_df = fetch_ipinfo_cidrs(item, proxies=proxies)
+            sleep(5)  # Take some rest to avoid getting rate limited
+            ipv4_df, ipv6_df = fetch_whois_cidrs(asn_dict=item)
             cidrs_ivp4_df = pd.concat([cidrs_ivp4_df, ipv4_df], ignore_index=True)
             cidrs_ivp6_df = pd.concat([cidrs_ivp6_df, ipv6_df], ignore_index=True)
-            # Take some rest
-            sleep(2)
 
         # Remove duplicates
         cidrs_ivp4_df = cidrs_ivp4_df.drop_duplicates()

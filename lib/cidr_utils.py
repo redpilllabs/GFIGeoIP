@@ -1,5 +1,6 @@
-
 import ipaddress
+from functools import partial
+from multiprocessing import Pool, cpu_count
 
 import pandas as pd
 
@@ -92,4 +93,127 @@ def convert_iprange_to_cidr(df: pd.DataFrame, ipv6=False):
             cidr_list.append({"Network": item.__str__(), "Tag": row["Tag"]})
 
     return pd.DataFrame(cidr_list)
-    return pd.DataFrame(cidr_list)
+
+
+def _cleanup_duplicates_and_subnets(df):
+    """Removes duplicate CIDR addresses from a DataFrame and removes CIDR addresses that are subnets of an existing CIDR address.
+
+    Args:
+      df: A DataFrame containing network CIDR addresses.
+
+    Returns:
+      A DataFrame containing the unique CIDR addresses, where no CIDR address is a subnet of another CIDR address.
+    """
+
+    # Sort the DataFrame by CIDR address.
+    df = df.sort_values(by=['Network'])
+
+    # Iterate over the DataFrame and compare each CIDR address to the previous one.
+    previous_cidr_address = None
+    to_drop = []
+    for index, row in df.iterrows():
+        cidr_address = row['Network']
+
+        # If the current CIDR address is the same as the previous CIDR address,
+        # or if the current CIDR address is a subnet of the previous CIDR address,
+        # remove the current entry.
+        if previous_cidr_address and (
+                cidr_address.compare_networks(previous_cidr_address) == 0 or cidr_address.subnet_of(
+            previous_cidr_address)):
+            to_drop.append(index)
+
+        previous_cidr_address = cidr_address
+
+    # Drop the duplicate and subnet CIDR addresses.
+    df = df.drop(to_drop)
+
+    return df
+
+
+def _preprocess_for_cleaning(df: pd.DataFrame):
+    # Convert CIDR strings to IPNetwork objects
+    df["Network"] = df["Network"].apply(partial(ipaddress.ip_network, strict=False))
+
+    # Filter for IPv4 and IPv6
+    df_v4 = df[df["Network"].apply(lambda x: x.version == 4)]
+    df_v6 = df[df["Network"].apply(lambda x: x.version == 6)]
+
+    df_v4 = _cleanup_duplicates_and_subnets(df_v4)
+    df_v6 = _cleanup_duplicates_and_subnets(df_v6)
+
+    # Concatenate results
+    df = pd.concat([df_v4, df_v6])
+    df["Network"] = df["Network"].astype(str)
+    return df
+
+
+def cleanup_cidrs(cidr_df: pd.DataFrame):
+    print(
+        "\n*** Starting to remove redundant CIDRs ***"
+    )
+    print(
+        "-> Splitting the dataset into smaller chunks based on their tags for parallel processing"
+    )
+    chunks = [
+        chunk.sort_values("Network", ascending=False)
+        for _, chunk in cidr_df.groupby("Tag")
+    ]
+
+    # Create a Pool of workers and process the chunks in parallel
+    print(f"-> Processing {len(chunks)} chunks in parallel, this will take a while...")
+    num_workers = cpu_count() - 1  # Get the number of CPU cores
+
+    with Pool(processes=num_workers) as pool:
+        cleaned_chunks = pool.map(_preprocess_for_cleaning, chunks)
+
+    print("-> Concatenating the DataFrames...")
+    return pd.concat(cleaned_chunks, axis=0, ignore_index=True).sort_values(
+        by=["Tag", "Network"]
+    )
+
+
+def calculate_ip_stats(df: pd.DataFrame) -> list[dict]:
+    """
+    Calculates how many IPs are covered for each country (tag)
+
+    Args:
+        df (pd.DataFrame): CIDR DataFrame
+
+    Returns:
+        list[dict]: List of dictionaries containing stats
+    """
+    unique_tags = df["Tag"].unique().tolist()
+    stats = []
+
+    for tag in unique_tags:
+        tagged_df = df[df["Tag"] == tag]
+        total_ipv4s = 0
+        total_ipv6s = 0
+        for _, row in tagged_df.iterrows():
+            cidr = row["Network"]
+            try:
+                network = ipaddress.IPv4Network(cidr, strict=False)
+                total_ipv4s += network.num_addresses
+            except ipaddress.AddressValueError:
+                try:
+                    network = ipaddress.IPv6Network(cidr, strict=False)
+                    total_ipv6s += network.num_addresses
+                except ipaddress.AddressValueError:
+                    # Invalid CIDR, pass
+                    pass
+        stats.append(
+            {"tag": tag, "total_ipv4s": total_ipv4s, "total_ipv6s": total_ipv6s}
+        )
+
+    return stats
+
+
+def pretty_print_stats(stats):
+    if stats:
+        for item in stats:
+            print(
+                f"""Total IP numbers included for {item['tag']}
+IPv4: {'{:,}'.format(item['total_ipv4s'])} IPs
+IPv6: {item['total_ipv6s']:.2e} IPs
+"""
+            )
