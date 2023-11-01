@@ -59,7 +59,7 @@ jobs:
 
       - name: Run python program
         run: |
-          python src/generate_ip_csv.py
+          python generate_ip_csv.py
 
       - name: Upload files to GitHub release
         uses: svenstaro/upload-release-action@v2
