@@ -42,20 +42,12 @@ jobs:
       - name: Get DB-IP database
         run: |
           curl -sSL "https://download.db-ip.com/free/dbip-country-lite-2023-10.csv.gz" -o dbip-country-lite.csv.gz
-          mkdir /tmp/dbip
+          mkdir ${{ github.workspace }}/resources/dbip
           gunzip dbip-country-lite.csv.gz
           rm -f dbip-country-lite.csv.gz
-          find . -type f -name "dbip*.csv" -exec mv {} ./resources/dbip \;
-          ls -a ./resources/dbip
+          find . -type f -name "dbip*.csv" -exec mv {} ${{ github.workspace }}/resources/dbip \;
+          ls -a ${{ github.workspace }}/resources/dbip
 
       - name: Run python program
         run: |
           python ./generate_ip_csv.py
-
-      - name: Upload files to GitHub release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file_glob: true
-          file: ./data/*
-          tag: ${{ env.TAG_NAME }}
