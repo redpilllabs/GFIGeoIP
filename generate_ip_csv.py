@@ -86,7 +86,6 @@ def main():
             geolite2_ipv4_df = pd.read_csv(
                 f"{geolite2_db_dir}/GeoLite2-Country-Blocks-IPv4.csv"
             )
-            print(geolite2_ipv4_df.head())
             geolite2_ipv6_df = pd.read_csv(
                 f"{geolite2_db_dir}/GeoLite2-Country-Blocks-IPv6.csv"
             )
@@ -98,7 +97,7 @@ def main():
                 geolite2_ipv4_df, geo_id, network["tag"]
             )
             geolite2_ipv6_df_filtered = extract_geolite2_cidrs(
-                geolite2_ipv4_df, geo_id, network["tag"]
+                geolite2_ipv6_df, geo_id, network["tag"]
             )
 
             print(f"IPv4 entries found: {len(geolite2_ipv4_df_filtered)}")
