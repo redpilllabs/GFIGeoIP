@@ -1,7 +1,8 @@
 #!/usr/bin/env python
-import socket
+import os
 import sys
-from os import makedirs
+import zipfile
+import socket
 from time import sleep
 
 import pandas as pd
@@ -36,76 +37,26 @@ def fetch_remote_ip_list(url: str, network_tag: str, proxies=None):
     return df
 
 
-def fetch_whois_cidrs(asn_dict: dict):
-    ipv4_data = ""
-    ipv6_data = ""
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        try:
-            s.connect(("whois.radb.net", 43))
-            print(f"Fetching CIDRs for {asn_dict['name']} ...")
-            s.sendall(b"-i origin " + bytes(asn_dict["asn"], encoding="utf-8") + b"\n")
-            while True:
-                data = s.recv(16).decode("utf8")
-                if not data:
-                    break
-                ipv4_data += data
-                ipv6_data += data
-        except Exception as e:
-            print(
-                f"Unexpected error occurred while fetching CIDRs for {asn_dict['name']}: {e}"
-            )
+def download_and_unzip_geoip_database(license_key, output_file):
+    """Downloads and unzips a GeoIP database from MaxMind.
 
-    ipv4_data = [i for i in ipv4_data.split("\n") if i.startswith("route:")]
-    ipv6_data = [i for i in ipv6_data.split("\n") if i.startswith("route6:")]
+    Args:
+      license_key: The MaxMind license key.
+      output_file: The path to the output file.
+    """
 
-    result_ipv4 = []
-    result_ipv6 = []
-    for item in ipv4_data:
-        result_ipv4.append(item.replace("route:", "").strip())
-    for item in ipv6_data:
-        result_ipv6.append(item.replace("route6:", "").strip())
+    # Download the GeoIP database.
+    url = f"https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key={license_key}&suffix=zip"
+    response = requests.get(url)
+    response.raise_for_status()
 
-    result_ipv4 = sorted(list(set(result_ipv4)))
-    result_ipv6 = sorted(list(set(result_ipv6)))
+    # Save the GeoIP database to a file.
+    with open(output_file, "wb") as f:
+        f.write(response.content)
 
-    print(f"Found {len(result_ipv4)} IPv4 CIDRs and {len(result_ipv6)} IPv6 CIDRs\n")
+    # Unzip the GeoIP database.
+    with zipfile.ZipFile(output_file, "r") as zip_file:
+        zip_file.extractall()
 
-    ipv4_df = pd.DataFrame(result_ipv4, columns=["Network"])
-    ipv6_df = pd.DataFrame(result_ipv6, columns=["Network"])
-    ipv4_df["Tag"] = asn_dict["tag"]
-    ipv6_df["Tag"] = asn_dict["tag"]
-
-    return ipv4_df, ipv6_df
-
-
-def fetch_autonomous_system_cidrs(asn_list_path: str, output_dir: str):
-    with open(asn_list_path, mode="rb") as asn_file:
-        if sys.version_info[1] < 11:
-            asn_list = tomli.load(asn_file)["autonomous_systems"]
-            tags = [x["tag"] for x in asn_list]
-            tags = set(tags)
-        else:
-            asn_list = tomllib.load(asn_file)["autonomous_systems"]
-            tags = [x["tag"] for x in asn_list]
-            tags = set(tags)
-
-    for tag in tags:
-        cidrs_ivp4_df = pd.DataFrame()
-        cidrs_ivp6_df = pd.DataFrame()
-        print(f"\n\n--- Fetching Autonomous System CIDRs tagged as '{tag}' ---\n\n")
-        autonomous_systems = [item for item in asn_list if item["tag"] == tag]
-
-        for item in autonomous_systems:
-            sleep(5)  # Take some rest to avoid getting rate limited
-            ipv4_df, ipv6_df = fetch_whois_cidrs(asn_dict=item)
-            cidrs_ivp4_df = pd.concat([cidrs_ivp4_df, ipv4_df], ignore_index=True)
-            cidrs_ivp6_df = pd.concat([cidrs_ivp6_df, ipv6_df], ignore_index=True)
-
-        # Remove duplicates
-        cidrs_ivp4_df = cidrs_ivp4_df.drop_duplicates()
-        cidrs_ivp6_df = cidrs_ivp6_df.drop_duplicates()
-
-        # Save to CSV
-        makedirs(output_dir, exist_ok=True)
-        cidrs_ivp4_df.to_csv(f"{output_dir}/ipv4_{tag}.csv", index=False)
-        cidrs_ivp6_df.to_csv(f"{output_dir}/ipv6_{tag}.csv", index=False)
+    # Remove the GeoIP database ZIP file.
+    os.remove(output_file)
