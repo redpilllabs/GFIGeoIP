@@ -2,34 +2,24 @@ name: Build geoip files
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * 4"
-  push:
-    branches:
-      - master
-    paths-ignore:
-      - ".gitignore"
-      - "config-example.json"
-      - "LICENSE"
-      - "README.md"
-      - ".github/dependabot.yml"
+    - cron: "0 0 23 * *"
+
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./GFIGeoIP/
     steps:
       - name: Setup environment
+        shell: bash
         run: |
           echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
           echo "RELEASE_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
-        shell: bash
 
       - name: Checkout codebase
         uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10.6'
 
       - name: Install dependencies
         run: |
@@ -40,8 +30,8 @@ jobs:
         env:
           LICENSE_KEY: ${{ secrets.MAXMIND_LICENSE_KEY }}
         run: |
-          curl -sSL "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key=${LICENSE_KEY}&suffix=zip" -o GeoLite2-Country-CSV.zip
-          curl -sSL "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN-CSV&license_key=${LICENSE_KEY}&suffix=zip" -o GeoLite2-ASN-CSV.zip
+          curl -sSL --progress-bar "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key=${LICENSE_KEY}&suffix=zip" -o GeoLite2-Country-CSV.zip
+          curl -sSL --progress-bar "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN-CSV&license_key=${LICENSE_KEY}&suffix=zip" -o GeoLite2-ASN-CSV.zip
           mkdir /tmp/geolite2
           unzip -u GeoLite2-Country-CSV.zip "*.csv" -d /tmp/geolite2
           rm -f GeoLite2-Country-CSV.zip
@@ -59,7 +49,7 @@ jobs:
 
       - name: Run python program
         run: |
-          python generate_ip_csv.py
+          python ./generate_ip_csv.py
 
       - name: Upload files to GitHub release
         uses: svenstaro/upload-release-action@v2
