@@ -82,8 +82,8 @@ def main():
             aggregated_ipv4_df = concat_df(aggregated_ipv4_df, geolite2_ipv4_df)
             aggregated_ipv6_df = concat_df(aggregated_ipv6_df, geolite2_ipv6_df)
 
-            # Load manually found CIDRs if available
-            print("\nLoading manually found CIDR database")
+            # Load community-contributed CIDRs if available
+            print("\nLoading community-contributed CIDR database")
             if Path(f"{community_db_dir}/ipv4_{network['tag']}.csv").is_file():
                 manual_ipv4_df = pd.read_csv(
                     f"{community_db_dir}/ipv4_{network['tag']}.csv"
@@ -113,22 +113,6 @@ def main():
                     aggregated_ipv6_df = pd.concat(
                         [aggregated_ipv6_df, ito_ipv6_df], ignore_index=True
                     )
-
-            # Load manually found CIDRs if available
-            print("\nLoading manually found CIDR database")
-            if Path(f"{community_db_dir}/ipv4_{network['tag']}.csv").is_file():
-                manual_ipv4_df = pd.read_csv(
-                    f"{community_db_dir}/ipv4_{network['tag']}.csv"
-                )
-                print(f"IPv4 entries found: {len(manual_ipv4_df)}")
-                aggregated_ipv4_df = concat_df(aggregated_ipv4_df, manual_ipv4_df)
-
-            if Path(f"{community_db_dir}/ipv6_{network['tag']}.csv").is_file():
-                manual_ipv6_df = pd.read_csv(
-                    f"{community_db_dir}/ipv6_{network['tag']}.csv"
-                )
-                print(f"IPv6 entries found: {len(manual_ipv6_df)}")
-                aggregated_ipv6_df = concat_df(aggregated_ipv6_df, manual_ipv6_df)
 
         # Remove duplicates
         print("\n====================================")
