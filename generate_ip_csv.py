@@ -18,8 +18,8 @@ from lib.geolite2 import load_geolite2_csv
 
 
 def main():
-    data_export_dir_path = "./data"
-    resources_dir_path = "./resources"
+    data_export_dir_path = f"{os.getcwd()}/data"
+    resources_dir_path = f"{os.getcwd()}/resources"
     community_db_dir = f"{resources_dir_path}/community"
     geolite2_db_dir = f"{resources_dir_path}/geolite2"
     ito_db_dir = f"{resources_dir_path}/ito"
