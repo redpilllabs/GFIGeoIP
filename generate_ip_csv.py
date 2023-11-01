@@ -149,7 +149,7 @@ def main():
         # Export to specific files to build binary .dat files for clients
         for network in geo_networks:
             tag = network["tag"]
-            aggregated_df[aggregated_df['Tag'] == tag]["Network"].to_csv(f"{data_export_dir_path}/{tag.lower()}.txt",
+            aggregated_df[aggregated_df['Tag'] == tag]["Network"].to_csv(f"{community_db_dir}/v2ray/geoip_{tag.lower()}.txt",
                                                                          index=False,
                                                                          header=False,
                                                                          )
