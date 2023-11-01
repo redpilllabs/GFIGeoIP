@@ -1,0 +1,70 @@
+name: Build geoip files
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 4"
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - ".gitignore"
+      - "config-example.json"
+      - "LICENSE"
+      - "README.md"
+      - ".github/dependabot.yml"
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup environment
+        run: |
+          echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+          echo "RELEASE_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Checkout codebase
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10.6'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Get MaxMind GeoLite2 database
+        env:
+          LICENSE_KEY: ${{ secrets.MAXMIND_LICENSE_KEY }}
+        run: |
+          curl -sSL "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key=${LICENSE_KEY}&suffix=zip" -o GeoLite2-Country-CSV.zip
+          curl -sSL "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN-CSV&license_key=${LICENSE_KEY}&suffix=zip" -o GeoLite2-ASN-CSV.zip
+          mkdir /tmp/geolite2
+          unzip -u GeoLite2-Country-CSV.zip "*.csv" -d /tmp/geolite2
+          rm -f GeoLite2-Country-CSV.zip
+          unzip -u GeoLite2-ASN-CSV.zip "*.csv" -d /tmp/geolite2
+          rm -f GeoLite2-ASN-CSV.zip
+          find /tmp/geolite2 -type f -name "*.csv" -exec mv {} ./resources/geolite2 \;
+
+      - name: Get DB-IP database
+        run: |
+          curl -sSL "https://download.db-ip.com/free/dbip-country-lite-2023-10.csv.gz" -o dbip-country-lite.csv.gz
+          mkdir /tmp/dbip
+          tar -xvf dbip-country-lite.csv.gz -C /tmp/geolite2
+          rm -f dbip-country-lite.csv.gz
+          find /tmp/dbip -type f -name "*.csv" -exec mv {} ./resources/dbip \;
+
+      - name: Run python program
+        run: |
+          python src/generate_ip_csv.py
+
+      - name: Upload files to GitHub release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file_glob: true
+          file: ./data/*
+          tag: ${{ env.TAG_NAME }}
