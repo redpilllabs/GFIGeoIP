@@ -3,15 +3,15 @@ import pandas as pd
 
 def load_geolite2_csv(dir_path: str, geolocation: dict):
     geo_id = extract_geolite2_id(
-        f"{dir_path}/geolite2-Country-Locations-en.csv", country=geolocation["name"]
+        f"{dir_path}/GeoLite2-Country-Locations-en.csv", country=geolocation["name"]
     )
     ipv4_df = extract_geolite2_cidrs(
-        f"{dir_path}/geolite2-Country-Blocks-IPv4.csv",
+        f"{dir_path}/GeoLite2-Country-Blocks-IPv4.csv",
         geoid=geo_id,
         tag=geolocation["tag"],
     )
     ipv6_df = extract_geolite2_cidrs(
-        f"{dir_path}/geolite2-Country-Blocks-IPv6.csv",
+        f"{dir_path}/GeoLite2-Country-Blocks-IPv6.csv",
         geoid=geo_id,
         tag=geolocation["tag"],
     )
@@ -67,8 +67,8 @@ def extract_geolite2_cidrs(geolite2_ipblocks_csv: str, geoid: int, tag: str):
 
 
 def extract_geo_networks(geo_id: int):
-    asn_df = pd.read_csv("./resources/geolite2/geolite2-ASN-Blocks-IPv4.csv")
-    cidr_df = pd.read_csv("./resources/geolite2/geolite2-Country-Blocks-IPv4.csv")
+    asn_df = pd.read_csv("./resources/geolite2/GeoLite2-ASN-Blocks-IPv4.csv")
+    cidr_df = pd.read_csv("./resources/geolite2/GeoLite2-Country-Blocks-IPv4.csv")
 
     print("Filtering CIDRs based on Geo ID...")
     cidr_df = cidr_df.loc[
