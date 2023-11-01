@@ -1,4 +1,6 @@
-beautifulsoup4==4.11.2
-lxml==4.9.2
-pandas==1.5.3
-tomli==2.0.1
+beautifulsoup4
+lxml
+pandas
+tomli
+python-dotenv
+requests
