@@ -53,7 +53,7 @@ jobs:
         run: |
           curl -sSL "https://download.db-ip.com/free/dbip-country-lite-2023-10.csv.gz" -o dbip-country-lite.csv.gz
           mkdir /tmp/dbip
-          tar -xvf dbip-country-lite.csv.gz -C /tmp/geolite2
+          gunzip dbip-country-lite.csv.gz > /tmp/geolite2
           rm -f dbip-country-lite.csv.gz
           find /tmp/dbip -type f -name "*.csv" -exec mv {} ./resources/dbip \;
 
