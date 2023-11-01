@@ -53,9 +53,9 @@ jobs:
         run: |
           curl -sSL "https://download.db-ip.com/free/dbip-country-lite-2023-10.csv.gz" -o dbip-country-lite.csv.gz
           mkdir /tmp/dbip
-          gunzip dbip-country-lite.csv.gz > /tmp/dbip
+          gunzip dbip-country-lite.csv.gz
           rm -f dbip-country-lite.csv.gz
-          find /tmp/dbip -type f -name "*.csv" -exec mv {} ./resources/dbip \;
+          find . -type f -name "dbip*.csv" -exec mv {} ./resources/dbip \;
 
       - name: Run python program
         run: |
