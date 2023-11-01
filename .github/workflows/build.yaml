@@ -37,7 +37,7 @@ jobs:
           rm -f GeoLite2-Country-CSV.zip
           unzip -u GeoLite2-ASN-CSV.zip "*.csv" -d /tmp/geolite2
           rm -f GeoLite2-ASN-CSV.zip
-          find /tmp/geolite2 -type f -name "*.csv" -exec mv {} ${{ github.workspace }}/resources/geolite2 \;
+          cp -r /tmp/geolite2/*.csv ${{ github.workspace }}/resources/geolite2/
           ls -a ${{ github.workspace }}/resources/geolite2
 
       - name: Get DB-IP database
