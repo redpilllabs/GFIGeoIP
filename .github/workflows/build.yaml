@@ -35,6 +35,7 @@ jobs:
           unzip -u GeoLite2-ASN-CSV.zip "*.csv" -d /tmp/geolite2
           rm -f GeoLite2-ASN-CSV.zip
           find /tmp/geolite2 -type f -name "*.csv" -exec mv {} ./resources/geolite2 \;
+          ls -a ./resources/geolite2
 
       - name: Get DB-IP database
         run: |
@@ -43,6 +44,7 @@ jobs:
           gunzip dbip-country-lite.csv.gz
           rm -f dbip-country-lite.csv.gz
           find . -type f -name "dbip*.csv" -exec mv {} ./resources/dbip \;
+          ls -a ./resources/dbip
 
       - name: Run python program
         run: |
