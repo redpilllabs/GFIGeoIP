@@ -15,8 +15,8 @@ jobs:
           echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
           echo "RELEASE_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
 
-      # - name: Checkout codebase
-      #   uses: actions/checkout@v4
+      - name: Checkout codebase
+        uses: actions/checkout@v4
 
       - name: Install dependencies
         run: |
@@ -24,6 +24,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Get MaxMind GeoLite2 database
+        working-directory: ${{ github.workspace }}
         env:
           LICENSE_KEY: ${{ secrets.MAXMIND_LICENSE_KEY }}
         run: |
@@ -37,7 +38,7 @@ jobs:
           unzip -u GeoLite2-ASN-CSV.zip "*.csv" -d /tmp/geolite2
           rm -f GeoLite2-ASN-CSV.zip
           find /tmp/geolite2 -type f -name "*.csv" -exec mv {} ./resources/geolite2 \;
-          ls -a ./resources/geolite2
+          ls -a ${{ github.workspace }}/resources/geolite2
 
       - name: Get DB-IP database
         run: |
