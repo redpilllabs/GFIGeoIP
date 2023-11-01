@@ -27,6 +27,8 @@ jobs:
         env:
           LICENSE_KEY: ${{ secrets.MAXMIND_LICENSE_KEY }}
         run: |
+          echo "Current working directory: $(pwd)"
+          echo "Current files in here: $(ls -a)"
           curl -sSL --progress-bar "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key=${LICENSE_KEY}&suffix=zip" -o GeoLite2-Country-CSV.zip
           curl -sSL --progress-bar "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN-CSV&license_key=${LICENSE_KEY}&suffix=zip" -o GeoLite2-ASN-CSV.zip
           mkdir /tmp/geolite2
