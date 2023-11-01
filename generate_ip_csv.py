@@ -4,22 +4,26 @@ import os
 from pathlib import Path
 
 import pandas as pd
-
 from lib.adapters import convert_xls_to_df
-from lib.cidr_utils import (calculate_ip_stats, cleanup_cidrs, concat_df, convert_iprange_to_cidr, expand_cidr_range,
-                            pretty_print_stats)
-from lib.dbip import load_dbip_csv
+from lib.cidr_utils import (
+    calculate_ip_stats,
+    cleanup_cidrs,
+    concat_df,
+    convert_iprange_to_cidr,
+    expand_cidr_range,
+    pretty_print_stats,
+)
+from lib.dbip import extract_dbip_ip_versions
 from lib.fetchers import fetch_remote_ip_list
-from lib.geolite2 import load_geolite2_csv
-
+from lib.geolite2 import extract_geolite2_cidrs, get_geolite2_id
 
 # This product includes geolite2 Data created by MaxMind, available from https://www.maxmind.com/
 # Usage is subject to EULA available from https://www.maxmind.com/en/geolite2/eula
 
 
 def main():
-    data_export_dir_path = "./data"
-    resources_dir_path = "./resources"
+    data_export_dir_path = f"{os.getcwd()}/data"
+    resources_dir_path = f"{os.getcwd()}/resources"
     community_db_dir = f"{resources_dir_path}/community"
     geolite2_db_dir = f"{resources_dir_path}/geolite2"
     ito_db_dir = f"{resources_dir_path}/ito"
@@ -56,8 +60,11 @@ def main():
             dbip_csvs = glob.glob(f"{dbip_db_dir}/*.csv")
             for csv_file in dbip_csvs:
                 print("\nLoading DBIP database")
-                dbip_ipv4, dbip_ipv6 = load_dbip_csv(
-                    file_path=csv_file,
+                dbip_df = pd.read_csv(
+                    csv_file, names=["Range_Start", "Range_End", "Tag"]
+                )
+                dbip_ipv4, dbip_ipv6 = extract_dbip_ip_versions(
+                    dbip_df,
                     tag=network["tag"],
                 )
                 # Convert IP ranges to CIDR
@@ -72,17 +79,38 @@ def main():
                 aggregated_ipv6_df = concat_df(aggregated_ipv6_df, dbip_ipv6)
 
             # Load MaxMind geolite2 database
-            print("\nLoading MaxMind geolite2 database")
-            geolite2_ipv4_df, geolite2_ipv6_df = load_geolite2_csv(
-                dir_path=geolite2_db_dir, geolocation=network
+            print("\nLoading MaxMind GeoLite2 database")
+            geolite2_countries_df = pd.read_csv(
+                f"{geolite2_db_dir}/GeoLite2-Country-Locations-en.csv"
+            )
+            geolite2_ipv4_df = pd.read_csv(
+                f"{geolite2_db_dir}/GeoLite2-Country-Blocks-IPv4.csv"
+            )
+            print(geolite2_ipv4_df.head())
+            geolite2_ipv6_df = pd.read_csv(
+                f"{geolite2_db_dir}/GeoLite2-Country-Blocks-IPv6.csv"
+            )
+            geo_id = get_geolite2_id(
+                geolite2_countries_df,
+                country=network["name"],
+            )
+            geolite2_ipv4_df_filtered = extract_geolite2_cidrs(
+                geolite2_ipv4_df, geo_id, network["tag"]
+            )
+            geolite2_ipv6_df_filtered = extract_geolite2_cidrs(
+                geolite2_ipv4_df, geo_id, network["tag"]
             )
 
-            print(f"IPv4 entries found: {len(geolite2_ipv4_df)}")
-            print(f"IPv6 entries found: {len(geolite2_ipv6_df)}")
+            print(f"IPv4 entries found: {len(geolite2_ipv4_df_filtered)}")
+            print(f"IPv6 entries found: {len(geolite2_ipv6_df_filtered)}")
 
             # Add to aggregated DataFrame
-            aggregated_ipv4_df = concat_df(aggregated_ipv4_df, geolite2_ipv4_df)
-            aggregated_ipv6_df = concat_df(aggregated_ipv6_df, geolite2_ipv6_df)
+            aggregated_ipv4_df = concat_df(
+                aggregated_ipv4_df, geolite2_ipv4_df_filtered
+            )
+            aggregated_ipv6_df = concat_df(
+                aggregated_ipv6_df, geolite2_ipv6_df_filtered
+            )
 
             # Load community-contributed CIDRs if available
             print("\nLoading community-contributed CIDR database")
@@ -135,10 +163,11 @@ def main():
         # Export to specific files to build binary .dat files for clients
         for network in geo_networks:
             tag = network["tag"]
-            aggregated_df[aggregated_df['Tag'] == tag]["Network"].to_csv(f"{community_db_dir}/v2ray/geoip_{tag.lower()}.txt",
-                                                                         index=False,
-                                                                         header=False,
-                                                                         )
+            aggregated_df[aggregated_df["Tag"] == tag]["Network"].to_csv(
+                f"{community_db_dir}/v2ray/geoip_{tag.lower()}.txt",
+                index=False,
+                header=False,
+            )
 
         print("\n====================================")
         print("||           Results              ||")
