@@ -8,7 +8,7 @@ from lib.cidr_utils import extract_to_ipv4_ipv6
 
 def convert_xls_to_df(xls_path: str):
     """
-    Loads an Excel sheet from ITO, extracts the CIDRs of
+    Loads an Excel sheet from ito, extracts the CIDRs of
     the Iranian intranet into a DataFrame
 
     Args:

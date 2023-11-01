@@ -95,6 +95,32 @@ def convert_iprange_to_cidr(df: pd.DataFrame, ipv6=False):
     return pd.DataFrame(cidr_list)
 
 
+def extract_to_ipv4_ipv6(df):
+    """Filters a DataFrame of IP addresses by IP type.
+
+    Args:
+      df: A DataFrame containing IP addresses.
+      ip_type: A string representing the IP type to filter for, either "ipv4" or "ipv6".
+
+    Returns:
+      A DataFrame containing the filtered IP addresses.
+    """
+
+    ipv4 = []
+    ipv6 = []
+    for index, row in df.iterrows():
+        ip_address = row['Network']
+
+        if ":" in ip_address:
+            ipv6.append(row)
+        elif "." in ip_address:
+            ipv4.append(row)
+
+    ipv4 = pd.DataFrame(ipv4, columns=["Network", "Tag"])
+    ipv6 = pd.DataFrame(ipv6, columns=["Network", "Tag"])
+
+    return ipv4, ipv6
+
 def _cleanup_duplicates_and_subnets(df):
     """Removes duplicate CIDR addresses from a DataFrame and removes CIDR addresses that are subnets of an existing CIDR address.
 

@@ -1,18 +1,17 @@
-
 import pandas as pd
 
 
 def load_geolite2_csv(dir_path: str, geolocation: dict):
     geo_id = extract_geolite2_id(
-        f"{dir_path}/GeoLite2-Country-Locations-en.csv", country=geolocation["name"]
+        f"{dir_path}/geolite2-Country-Locations-en.csv", country=geolocation["name"]
     )
     ipv4_df = extract_geolite2_cidrs(
-        f"{dir_path}/GeoLite2-Country-Blocks-IPv4.csv",
+        f"{dir_path}/geolite2-Country-Blocks-IPv4.csv",
         geoid=geo_id,
         tag=geolocation["tag"],
     )
     ipv6_df = extract_geolite2_cidrs(
-        f"{dir_path}/GeoLite2-Country-Blocks-IPv6.csv",
+        f"{dir_path}/geolite2-Country-Blocks-IPv6.csv",
         geoid=geo_id,
         tag=geolocation["tag"],
     )
@@ -22,10 +21,10 @@ def load_geolite2_csv(dir_path: str, geolocation: dict):
 
 def extract_geolite2_id(geolite2_countries_file: str, country: str):
     """
-    Extracts GeoID of a given country from the 'GeoLite2-Country-Locations-en.csv'
+    Extracts GeoID of a given country from the 'geolite2-Country-Locations-en.csv'
 
     Args:
-        geolite2_countries_file (str): Path to 'GeoLite2-Country-Locations-en.csv' file
+        geolite2_countries_file (str): Path to 'geolite2-Country-Locations-en.csv' file
         country (str): Country to extract GeoID
 
     Returns:
@@ -38,10 +37,10 @@ def extract_geolite2_id(geolite2_countries_file: str, country: str):
 
 def extract_geolite2_cidrs(geolite2_ipblocks_csv: str, geoid: int, tag: str):
     """
-    Extracts CIDR data from the 'GeoLite2-Country-Blocks-IPv*.csv' files
+    Extracts CIDR data from the 'geolite2-Country-Blocks-IPv*.csv' files
 
     Args:
-        geolite2_ipblocks_csv (str): Path to 'GeoLite2-Country-Blocks-IPv*.csv'
+        geolite2_ipblocks_csv (str): Path to 'geolite2-Country-Blocks-IPv*.csv'
         geoid (int): GeoID of the CIDRs to extract
         tag (str): Country ISO code to append at the end
 
@@ -52,7 +51,7 @@ def extract_geolite2_cidrs(geolite2_ipblocks_csv: str, geoid: int, tag: str):
     extracted_df = ipblocks_df.loc[
         (ipblocks_df["geoname_id"] == geoid)
         & (ipblocks_df["registered_country_geoname_id"] == geoid)
-    ]
+        ]
     extracted_df = extracted_df.drop(
         columns=[
             "geoname_id",
@@ -66,15 +65,16 @@ def extract_geolite2_cidrs(geolite2_ipblocks_csv: str, geoid: int, tag: str):
     extracted_df["Tag"] = tag
     return extracted_df
 
+
 def extract_geo_networks(geo_id: int):
-    asn_df = pd.read_csv("./Data_Source/GeoLite2/GeoLite2-ASN-Blocks-IPv4.csv")
-    cidr_df = pd.read_csv("./Data_Source/GeoLite2/GeoLite2-Country-Blocks-IPv4.csv")
+    asn_df = pd.read_csv("./resources/geolite2/geolite2-ASN-Blocks-IPv4.csv")
+    cidr_df = pd.read_csv("./resources/geolite2/geolite2-Country-Blocks-IPv4.csv")
 
     print("Filtering CIDRs based on Geo ID...")
     cidr_df = cidr_df.loc[
         (cidr_df["geoname_id"].isin([geo_id]))
         & (cidr_df["registered_country_geoname_id"].isin([geo_id]))
-    ]
+        ]
     cidr_df = cidr_df.drop(
         columns=[
             "geoname_id",
