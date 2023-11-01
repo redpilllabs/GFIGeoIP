@@ -32,13 +32,11 @@ jobs:
           echo "Current files in here: $(ls -a)"
           curl -sSL --progress-bar "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key=${LICENSE_KEY}&suffix=zip" -o GeoLite2-Country-CSV.zip
           curl -sSL --progress-bar "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN-CSV&license_key=${LICENSE_KEY}&suffix=zip" -o GeoLite2-ASN-CSV.zip
-          mkdir /tmp/geolite2
           mkdir ${{ github.workspace }}/resources/geolite2
-          unzip -u GeoLite2-Country-CSV.zip "*.csv" -d /tmp/geolite2
+          unzip -j GeoLite2-Country-CSV.zip -d ${{ github.workspace }}/resources/geolite2
+          unzip -j GeoLite2-ASN-CSV.zip -d ${{ github.workspace }}/resources/geolite2
           rm -f GeoLite2-Country-CSV.zip
-          unzip -u GeoLite2-ASN-CSV.zip "*.csv" -d /tmp/geolite2
           rm -f GeoLite2-ASN-CSV.zip
-          find /tmp/geolite2 -type f -name "*.csv" -exec mv {} ${{ github.workspace }}/resources/geolite2 \;
           cd ${{ github.workspace }}/resources/geolite2 && ls -a
 
       - name: Get DB-IP database
