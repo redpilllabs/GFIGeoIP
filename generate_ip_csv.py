@@ -23,7 +23,7 @@ def main():
     community_db_dir = f"{resources_dir_path}/community"
     geolite2_db_dir = f"{resources_dir_path}/geolite2"
     ito_db_dir = f"{resources_dir_path}/ito"
-    dbip_db_filename = f"{resources_dir_path}/dbip/dbip-country-lite.csv"
+    dbip_db_dir = f"{resources_dir_path}/dbip"
 
     aggregated_ipv4_df = pd.DataFrame(columns=["Network", "Tag"])
     aggregated_ipv6_df = pd.DataFrame(columns=["Network", "Tag"])
@@ -53,21 +53,23 @@ def main():
             print(f"\n\n*** Aggregating data for {network['name']} ***")
 
             # Load DBIP database
-            print("\nLoading DBIP database")
-            dbip_ipv4, dbip_ipv6 = load_dbip_csv(
-                file_path=dbip_db_filename,
-                tag=network["tag"],
-            )
-            # Convert IP ranges to CIDR
-            dbip_ipv4 = convert_iprange_to_cidr(dbip_ipv4, ipv6=False)
-            dbip_ipv6 = convert_iprange_to_cidr(dbip_ipv6, ipv6=True)
+            dbip_csvs = glob.glob(f"{dbip_db_dir}/*.csv")
+            for csv_file in dbip_csvs:
+                print("\nLoading DBIP database")
+                dbip_ipv4, dbip_ipv6 = load_dbip_csv(
+                    file_path=csv_file,
+                    tag=network["tag"],
+                )
+                # Convert IP ranges to CIDR
+                dbip_ipv4 = convert_iprange_to_cidr(dbip_ipv4, ipv6=False)
+                dbip_ipv6 = convert_iprange_to_cidr(dbip_ipv6, ipv6=True)
 
-            print(f"IPv4 entries found: {len(dbip_ipv4)}")
-            print(f"IPv6 entries found: {len(dbip_ipv6)}")
+                print(f"IPv4 entries found: {len(dbip_ipv4)}")
+                print(f"IPv6 entries found: {len(dbip_ipv6)}")
 
-            # Add to aggregated DataFrame
-            aggregated_ipv4_df = concat_df(aggregated_ipv4_df, dbip_ipv4)
-            aggregated_ipv6_df = concat_df(aggregated_ipv6_df, dbip_ipv6)
+                # Add to aggregated DataFrame
+                aggregated_ipv4_df = concat_df(aggregated_ipv4_df, dbip_ipv4)
+                aggregated_ipv6_df = concat_df(aggregated_ipv6_df, dbip_ipv6)
 
             # Load MaxMind geolite2 database
             print("\nLoading MaxMind geolite2 database")
@@ -100,10 +102,10 @@ def main():
 
             # Load ito database
             if network["tag"] == "IR":
-                xls_files = glob.glob(f"{ito_db_dir}/*.xls")
-                for file in xls_files:
-                    print(f"\nLoading ITO database {file}")
-                    ito_ipv4_df, ito_ipv6_df = convert_xls_to_df(file)
+                dbip_csvs = glob.glob(f"{ito_db_dir}/*.xls")
+                for csv_file in dbip_csvs:
+                    print(f"\nLoading ITO database {csv_file}")
+                    ito_ipv4_df, ito_ipv6_df = convert_xls_to_df(csv_file)
 
                     print(f"IPv4 entries found: {len(ito_ipv4_df)}")
                     aggregated_ipv4_df = pd.concat(
