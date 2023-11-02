@@ -1,0 +1,20 @@
+# Websites that have placed an embargo on Iranian IP
+
+
+include:spotify
+include:paypal
+include:docker
+include:openai
+include:adobe
+include:aws
+
+
+# Dev
+dl.google.com
+android.com
+
+# AI
+bard.google.com
+
+# Network
+maxmind.com
