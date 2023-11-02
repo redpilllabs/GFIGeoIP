@@ -1,0 +1,6 @@
+beautifulsoup4
+lxml
+pandas
+tomli
+python-dotenv
+requests

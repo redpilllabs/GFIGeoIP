@@ -1,0 +1,70 @@
+name: Build and release GeoIP and GeoSite databases
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 23 * *"
+  push:
+    paths:
+      - 'data/community/'
+      - 'data/ito/'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup environment
+        shell: bash
+        run: |
+          echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+          echo "RELEASE_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+
+      - name: Checkout codebase
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Get MaxMind GeoLite2 database
+        working-directory: ${{ github.workspace }}
+        env:
+          LICENSE_KEY: ${{ secrets.MAXMIND_LICENSE_KEY }}
+        run: |
+          curl -sSL --progress-bar "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key=${LICENSE_KEY}&suffix=zip" -o GeoLite2-Country-CSV.zip
+          curl -sSL --progress-bar "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN-CSV&license_key=${LICENSE_KEY}&suffix=zip" -o GeoLite2-ASN-CSV.zip
+          mkdir ${{ github.workspace }}/data/geolite2
+          unzip -j -o GeoLite2-Country-CSV.zip -d ${{ github.workspace }}/data/geolite2
+          unzip -j -o GeoLite2-ASN-CSV.zip -d ${{ github.workspace }}/data/geolite2
+          rm -f GeoLite2-Country-CSV.zip
+          rm -f GeoLite2-ASN-CSV.zip
+
+      - name: Get DB-IP database
+        run: |
+          curl -sSL "https://download.db-ip.com/free/dbip-country-lite-2023-10.csv.gz" -o dbip-country-lite.csv.gz
+          mkdir ${{ github.workspace }}/data/dbip
+          gunzip dbip-country-lite.csv.gz
+          rm -f dbip-country-lite.csv.gz
+          find . -type f -name "dbip*.csv" -exec mv {} ${{ github.workspace }}/data/dbip \;
+
+      - name: Aggregate and create IP text databases
+        run: |
+          python ./main.py
+
+      - name: Generate sha256 checksum for assets
+        run: |
+          cd ./data || exit 1
+          for name in $(ls *.dat); do
+            sha256sum ${name} > ./${name}.sha256sum
+          done
+
+      - name: Release and upload assets
+        run: |
+          gh release create --notes-file ./CHANGELOG.md ${{ env.TAG_NAME }} --title ${{ env.RELEASE_NAME }} \
+            ./build/agg_cidrs.csv
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
