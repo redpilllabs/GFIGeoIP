@@ -37,7 +37,6 @@ jobs:
         run: |
           curl -sSL --progress-bar "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key=${LICENSE_KEY}&suffix=zip" -o GeoLite2-Country-CSV.zip
           curl -sSL --progress-bar "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN-CSV&license_key=${LICENSE_KEY}&suffix=zip" -o GeoLite2-ASN-CSV.zip
-          mkdir ${{ github.workspace }}/data/geolite2
           unzip -j -o GeoLite2-Country-CSV.zip -d ${{ github.workspace }}/data/geolite2
           unzip -j -o GeoLite2-ASN-CSV.zip -d ${{ github.workspace }}/data/geolite2
           rm -f GeoLite2-Country-CSV.zip
@@ -46,7 +45,6 @@ jobs:
       - name: Get DB-IP database
         run: |
           curl -sSL "https://download.db-ip.com/free/dbip-country-lite-2023-10.csv.gz" -o dbip-country-lite.csv.gz
-          mkdir ${{ github.workspace }}/data/dbip
           gunzip dbip-country-lite.csv.gz
           rm -f dbip-country-lite.csv.gz
           find . -type f -name "dbip*.csv" -exec mv {} ${{ github.workspace }}/data/dbip \;
@@ -55,16 +53,44 @@ jobs:
         run: |
           python ./main.py
 
+
+      - name: Checkout v2fly/geoip repository
+        uses: actions/checkout@v4
+        with:
+          repository: v2fly/geoip
+          path: v2fly-geoip
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version-file: ${{ github.workspace }}/v2fly-geoip/go.mod
+
+
+      - name: Build GeoIP dat files
+        run: |
+          cd ${{ github.workspace }}/v2fly-geoip
+          go mod download
+          go run ./ -c ../data/community/v2ray/geoip-config.json
+
+
       - name: Generate sha256 checksum for assets
         run: |
-          cd ./data || exit 1
+          cd ${{ github.workspace }}/v2fly-geoip/output/dat || exit 1
           for name in $(ls *.dat); do
             sha256sum ${name} > ./${name}.sha256sum
           done
 
+      - name: Move files to build dir
+        run: |
+          mv ${{ github.workspace }}/v2fly-geoip/output/dat/*.dat ${{ github.workspace }}/v2fly-geoip/output/dat/*.sha256sum ${{ github.workspace }}/build
+
       - name: Release and upload assets
         run: |
           gh release create --notes-file ./CHANGELOG.md ${{ env.TAG_NAME }} --title ${{ env.RELEASE_NAME }} \
-            ./build/agg_cidrs.csv
+            ./build/agg_cidrs.csv \
+            ./build/geoip.dat \
+            ./build/geoip.dat.sha256sum \
+            ./build/geoip-lite.dat \
+            ./build/geoip-lite.dat.sha256sum \
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

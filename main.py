@@ -56,8 +56,8 @@ def main():
         aggregated_ipv4_df = concat_df(aggregated_ipv4_df, ac_ipv4_df)
 
     if exists(data_dir_path):
-        for network in geo_networks:
-            print(f"\n\n*** Aggregating data for {network['name']} ***")
+        for tag in geo_networks:
+            print(f"\n\n*** Aggregating data for {tag['name']} ***")
 
             # Load DBIP database
             dbip_csvs = glob.glob(f"{dbip_db_dir}/*.csv")
@@ -68,7 +68,7 @@ def main():
                 )
                 dbip_ipv4, dbip_ipv6 = extract_dbip_ip_versions(
                     dbip_df,
-                    tag=network["tag"],
+                    tag=tag["tag"],
                 )
                 # Convert IP ranges to CIDR
                 dbip_ipv4 = convert_iprange_to_cidr(dbip_ipv4, ipv6=False)
@@ -94,13 +94,13 @@ def main():
             )
             geo_id = get_geolite2_id(
                 geolite2_countries_df,
-                country=network["name"],
+                country=tag["name"],
             )
             geolite2_ipv4_df_filtered = extract_geolite2_cidrs(
-                geolite2_ipv4_df, geo_id, network["tag"]
+                geolite2_ipv4_df, geo_id, tag["tag"]
             )
             geolite2_ipv6_df_filtered = extract_geolite2_cidrs(
-                geolite2_ipv6_df, geo_id, network["tag"]
+                geolite2_ipv6_df, geo_id, tag["tag"]
             )
 
             print(f"IPv4 entries found: {len(geolite2_ipv4_df_filtered)}")
@@ -116,22 +116,22 @@ def main():
 
             # Load community-contributed CIDRs if available
             print("\nLoading community-contributed CIDR database")
-            if Path(f"{community_db_dir}/ipv4_{network['tag']}.csv").is_file():
+            if Path(f"{community_db_dir}/ipv4_{tag['tag']}.csv").is_file():
                 manual_ipv4_df = pd.read_csv(
-                    f"{community_db_dir}/ipv4_{network['tag']}.csv"
+                    f"{community_db_dir}/ipv4_{tag['tag']}.csv"
                 )
                 print(f"IPv4 entries found: {len(manual_ipv4_df)}")
                 aggregated_ipv4_df = concat_df(aggregated_ipv4_df, manual_ipv4_df)
 
-            if Path(f"{community_db_dir}/ipv6_{network['tag']}.csv").is_file():
+            if Path(f"{community_db_dir}/ipv6_{tag['tag']}.csv").is_file():
                 manual_ipv6_df = pd.read_csv(
-                    f"{community_db_dir}/ipv6_{network['tag']}.csv"
+                    f"{community_db_dir}/ipv6_{tag['tag']}.csv"
                 )
                 print(f"IPv6 entries found: {len(manual_ipv6_df)}")
                 aggregated_ipv6_df = concat_df(aggregated_ipv6_df, manual_ipv6_df)
 
             # Load ito database
-            if network["tag"] == "IR":
+            if tag["tag"] == "IR":
                 dbip_csvs = glob.glob(f"{ito_db_dir}/*.xls")
                 for csv_file in dbip_csvs:
                     print(f"\nLoading ITO database {csv_file}")
@@ -163,8 +163,7 @@ def main():
         )
 
         # Export to specific files to build binary .dat files for clients
-        for network in geo_networks:
-            tag = network["tag"]
+        for tag in aggregated_df["Tag"].unique().tolist():
             aggregated_df[aggregated_df["Tag"] == tag]["Network"].to_csv(
                 f"{build_dir_path}/geoip_{tag.lower()}.txt",
                 index=False,
