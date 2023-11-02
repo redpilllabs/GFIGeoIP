@@ -1,20 +1,56 @@
 # Websites that have placed an embargo on Iranian IP
 
-
-include:spotify
+##### Financial #####
 include:paypal
+stripe.com
+payments.google.com
+binance.com
+binance.vision
+binance.dev
+coinbase.com
+
+
+##### Dev #####
 include:docker
-include:openai
+include:kubernetes
 include:adobe
-include:aws
-
-
-# Dev
 dl.google.com
+dl-ssl.google.com
+developers.google.com
+firebase.google.com
+firebase.com
 android.com
+jitpack.io
+maven.google.com
+nvidia.com
+intel.com
 
-# AI
+
+##### AI / Data Science #####
+include:openai
 bard.google.com
+claude.ai
+kaggle.net
 
-# Network
+
+##### Network / Cloud #####
+include:aws
 maxmind.com
+digitalocean.com
+linode.com
+vultr.com
+hetzner.cloud
+hetzner.company
+hetzner.com
+
+
+##### Content / Media #####
+include:spotify
+books.google.com
+play.google.com
+gamepass.com
+xbox.com
+xboxab.com
+xboxab.net
+xboxlive.com
+xboxservices.com
