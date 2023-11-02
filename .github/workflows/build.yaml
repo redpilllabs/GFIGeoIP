@@ -63,26 +63,26 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version-file: ./v2fly-geoip/go.mod
+          go-version-file: ${{ github.workspace }}/v2fly-geoip/go.mod
 
 
       - name: Build GeoIP dat files
         run: |
-          cd v2fly-geoip
+          cd ${{ github.workspace }}/v2fly-geoip
           go mod download
           go run ./ -c ../data/community/v2ray/geoip-config.json
 
 
       - name: Generate sha256 checksum for assets
         run: |
-          cd ./output/dat || exit 1
+          cd ${{ github.workspace }}/v2fly-geoip/output/dat || exit 1
           for name in $(ls *.dat); do
             sha256sum ${name} > ./${name}.sha256sum
           done
 
       - name: Move files to build dir
         run: |
-          mv ./output/dat/*.dat ./output/dat/*.sha256sum ../build
+          mv ${{ github.workspace }}/v2fly-geoip/output/dat/*.dat ${{ github.workspace }}/v2fly-geoip/output/dat/*.sha256sum ${{ github.workspace }}/build
 
       - name: Release and upload assets
         run: |
