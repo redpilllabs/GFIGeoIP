@@ -63,12 +63,13 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version-file: ./v2fly-geoip/go.sum
+          go-version-file: ./v2fly-geoip/go.mod
 
 
       - name: Build GeoIP dat files
         run: |
           cd v2fly-geoip
+          go mod download
           go run ./ -c ../data/community/v2ray/geoip-config.json
 
 
