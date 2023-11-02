@@ -182,24 +182,6 @@
             }
         },
         {
-            "type": "maxmindMMDB",
-            "action": "output",
-            "args": {
-                "outputName": "Country.mmdb"
-            }
-        },
-        {
-            "type": "maxmindMMDB",
-            "action": "output",
-            "args": {
-                "outputName": "Country-lite.mmdb",
-                "wantedList": [
-                    "ir",
-                    "private"
-                ]
-            }
-        },
-        {
             "type": "text",
             "action": "output"
         }
