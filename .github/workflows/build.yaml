@@ -22,13 +22,36 @@ jobs:
           echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
           echo "RELEASE_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
 
+
       - name: Checkout codebase
         uses: actions/checkout@v4
+
+
+      - name: Checkout v2fly/geoip repository
+        uses: actions/checkout@v4
+        with:
+          repository: v2fly/geoip
+          path: v2fly-geoip
+
+
+      - name: Checkout v2fly/geosite repository
+        uses: actions/checkout@v4
+        with:
+          repository: v2fly/domain-list-community
+          path: v2fly-geosite
+
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version-file: ${{ github.workspace }}/v2fly-geoip/go.mod
+
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
 
       - name: Get MaxMind GeoLite2 database
         working-directory: ${{ github.workspace }}
@@ -49,45 +72,47 @@ jobs:
           rm -f dbip-country-lite.csv.gz
           find . -type f -name "dbip*.csv" -exec mv {} ${{ github.workspace }}/data/dbip \;
 
+
       - name: Aggregate and create IP text databases
         run: |
           python ./main.py
-
-
-      - name: Checkout v2fly/geoip repository
-        uses: actions/checkout@v4
-        with:
-          repository: v2fly/geoip
-          path: v2fly-geoip
-
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version-file: ${{ github.workspace }}/v2fly-geoip/go.mod
 
 
       - name: Build GeoIP dat files
         run: |
           cd ${{ github.workspace }}/v2fly-geoip
           go mod download
-          go run ./ -c ../data/community/v2ray/geoip-config.json
+          go run ./ -c ${{ github.workspace }}/data/community/v2ray/geoip/config.json
+
+
+      - name: Move files to build dir
+        run: |
+          mv ${{ github.workspace }}/v2fly-geoip/output/dat/*.dat ${{ github.workspace }}/build
+
+
+      - name: Build GeoSite dat files
+        run: |
+          cd ${{ github.workspace }}/v2fly-geosite
+          go mod download
+          rm ./data/category-ir
+          cp ${{ github.workspace }}/data/community/v2ray/geosite/* ./data/
+          go run ./ --outputdir=${{ github.workspace }}/build --exportlists=category-ads-all,category-porn,cn,ir,embargo,github,cloudflare
+          mv ${{ github.workspace }}/build/dlc.dat ${{ github.workspace }}/build/geosite.dat
 
 
       - name: Generate sha256 checksum for assets
         run: |
-          cd ${{ github.workspace }}/v2fly-geoip/output/dat || exit 1
+          cd ${{ github.workspace }}/build || exit 1
           for name in $(ls *.dat); do
             sha256sum ${name} > ./${name}.sha256sum
           done
 
-      - name: Move files to build dir
-        run: |
-          mv ${{ github.workspace }}/v2fly-geoip/output/dat/*.dat ${{ github.workspace }}/v2fly-geoip/output/dat/*.sha256sum ${{ github.workspace }}/build
-
       - name: Release and upload assets
         run: |
-          gh release create --notes-file ./RELEASE_NOTES.md ${{ env.TAG_NAME }} --title ${{ env.RELEASE_NAME }} \
+          gh release create --notes "Updated database" ${{ env.TAG_NAME }} --title ${{ env.RELEASE_NAME }} \
             ./build/agg_cidrs.csv \
+            ./build/geosite.dat \
+            ./build/geosite.dat.sha256sum \
             ./build/geoip.dat \
             ./build/geoip.dat.sha256sum \
             ./build/geoip-lite.dat \
