@@ -55,12 +55,35 @@ jobs:
         run: |
           python ./main.py
 
+
+      - name: Checkout v2fly/geoip repository
+        uses: actions/checkout@v4
+        with:
+          repository: v2fly/geoip
+          path: v2fly-geoip
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version-file: ./v2fly-geoip/go.mod
+
+
+      - name: Build GeoIP dat files
+        run: |
+          cd v2fly-geoip
+          go run ./ -c ../data/community/v2ray/geoip-config.json
+
+
       - name: Generate sha256 checksum for assets
         run: |
-          cd ./data || exit 1
+          cd ./output/dat || exit 1
           for name in $(ls *.dat); do
             sha256sum ${name} > ./${name}.sha256sum
           done
+
+      - name: Move files to build dir
+        run: |
+          mv ./output/dat/*.dat ./output/dat/*.sha256sum ../build
 
       - name: Release and upload assets
         run: |
