@@ -1,0 +1,3 @@
+# RELEASE NOTES
+
+- Updated database

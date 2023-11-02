@@ -86,7 +86,7 @@ jobs:
 
       - name: Release and upload assets
         run: |
-          gh release create --notes-file ./CHANGELOG.md ${{ env.TAG_NAME }} --title ${{ env.RELEASE_NAME }} \
+          gh release create --notes-file ./RELEASE_NOTES.md ${{ env.TAG_NAME }} --title ${{ env.RELEASE_NAME }} \
             ./build/agg_cidrs.csv \
             ./build/geoip.dat \
             ./build/geoip.dat.sha256sum \
