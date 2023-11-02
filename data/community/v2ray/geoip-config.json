@@ -33,14 +33,6 @@
             "type": "text",
             "action": "add",
             "args": {
-                "name": "nsfw",
-                "uri": "../build/geoip_xx.txt"
-            }
-        },
-        {
-            "type": "text",
-            "action": "add",
-            "args": {
                 "name": "cloudflare",
                 "uri": "https://www.cloudflare.com/ips-v4"
             }
