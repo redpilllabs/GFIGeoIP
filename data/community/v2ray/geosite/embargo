@@ -40,7 +40,6 @@ kaggle.net
 ##### Network / Cloud #####
 
 include:aws
-include:cloudfront
 maxmind.com
 digitalocean.com
 linode.com
