@@ -1,7 +1,9 @@
 # Iranian websites which will not open without an Iranian IP
+
 # Use to make them direct connections so they open inside Iran
 
 # Iran TLDs
+
 ir
 xn--mgba3a4f16a # .ایران
 xn--mgba3a4fra # .ايران
@@ -22,13 +24,19 @@ include:category-tech-ir
 include:category-travel-ir
 
 # Conglomerate company
-include:snapp
 
+include:snapp
 
 # Only include domains ending not in '.ir' since we have the TLD filter above
 
+# Leechers / Pirates
+
+p30download.com
+parsget.com
+rapidpars.com
 
 # Blog
+
 blogfa.com
 blogsky.com
 loxblog.com
@@ -36,20 +44,26 @@ niniweblog.com
 rozblog.com
 
 # Maps
+
 neshan.org
 
 # Sport
+
 varzesh3.com
 
 # Financial
+
 tgju.org
+ircd.me
 
 # Cars
+
 karnameh.com
 khodro45.com
 saipacorp.com
 
 # Jobs
+
 jobinja.com
 jobinjacdn.com
 

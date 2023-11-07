@@ -1,6 +1,7 @@
 # Websites that have placed an embargo on Iranian IP
 
 ##### Financial #####
+
 include:paypal
 stripe.com
 payments.google.com
@@ -9,14 +10,17 @@ binance.vision
 binance.dev
 coinbase.com
 
-
 ##### Dev #####
+
 include:docker
 include:kubernetes
 include:adobe
 dl.google.com
 dl-ssl.google.com
 developers.google.com
+developerprofiles-pa.clients6.google.com
+content-developerprofiles-pa.googleapis.com
+issuetracker.google.com
 firebase.google.com
 firebase.com
 android.com
@@ -24,17 +28,19 @@ jitpack.io
 maven.google.com
 nvidia.com
 intel.com
-
+gitlab.com
 
 ##### AI / Data Science #####
+
 include:openai
 bard.google.com
 claude.ai
 kaggle.net
 
-
 ##### Network / Cloud #####
+
 include:aws
+include:cloudfront
 maxmind.com
 digitalocean.com
 linode.com
@@ -43,8 +49,8 @@ hetzner.cloud
 hetzner.company
 hetzner.com
 
-
 ##### Content / Media #####
+
 include:spotify
 books.google.com
 play.google.com
@@ -54,3 +60,10 @@ xboxab.com
 xboxab.net
 xboxlive.com
 xboxservices.com
+
+##### Productivity #####
+
+trello.com
+trellocdn.com
+atlassian.com
+bulletjournal.com
