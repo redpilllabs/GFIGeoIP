@@ -29,13 +29,18 @@ maven.google.com
 nvidia.com
 intel.com
 gitlab.com
+pkg.go.dev
+teamtreehouse.com
+colab.google
 
 ##### AI / Data Science #####
 
 include:openai
 bard.google.com
 claude.ai
+anthropic.com
 kaggle.net
+fireworks.ai
 
 ##### Network / Cloud #####
 
@@ -47,6 +52,8 @@ vultr.com
 hetzner.cloud
 hetzner.company
 hetzner.com
+namecheap.com
+namesilo.com
 
 ##### Content / Media #####
 
