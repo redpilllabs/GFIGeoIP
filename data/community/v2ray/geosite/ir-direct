@@ -1,0 +1,39 @@
+
+# Websites that have not blocked Iranian IP and would enjoy faster speeds in direct connections
+
+# Dev
+
+leetcode.com
+codepen.io
+
+# Google
+
+clients6.google.com
+mail.google.com
+drive.google.com
+colab.research.google.com
+googleusercontent.com
+gstatic.com
+fonts.googleapis.com
+fonts.gstatic.com
+
+# YouTube
+
+youtube.com
+youtu.be
+ytimg.com
+ggpht.com
+gvt1.com
+googlevideo.com
+
+# Maven artifacts repo
+
+gradle.org
+maven.apache.org
+jcenter.bintray.com
+
+# GitHub Docker registry
+
+# Note: The main domain (github.com) will not be added since there are paid features offered and users might get banned using an Iranian IP
+
+ghcr.io
