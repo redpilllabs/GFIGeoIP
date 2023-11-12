@@ -20,6 +20,7 @@ dl-ssl.google.com
 developers.google.com
 developerprofiles-pa.clients6.google.com
 content-developerprofiles-pa.googleapis.com
+storage.googleapis.com
 issuetracker.google.com
 firebase.google.com
 firebase.com
@@ -30,6 +31,8 @@ nvidia.com
 intel.com
 gitlab.com
 pkg.go.dev
+golang.org
+
 teamtreehouse.com
 colab.google
 web.dev
@@ -42,6 +45,7 @@ claude.ai
 anthropic.com
 kaggle.net
 fireworks.ai
+download.pytorch.org
 
 ##### Network / Cloud #####
 
@@ -55,6 +59,8 @@ hetzner.company
 hetzner.com
 namecheap.com
 namesilo.com
+framerusercontent.com
+framerstatic.com
 
 ##### Content / Media #####
 
