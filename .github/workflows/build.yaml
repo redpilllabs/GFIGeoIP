@@ -95,8 +95,9 @@ jobs:
           cd ${{ github.workspace }}/v2fly-geosite
           go mod download
           rm ./data/category-ir
+          rm ./data/youtube
           cp ${{ github.workspace }}/data/community/v2ray/geosite/* ./data/
-          go run ./ --outputdir=${{ github.workspace }}/build --exportlists=category-ads-all,category-porn,cn,ir,embargo,github,cloudflare
+          go run ./ --outputdir=${{ github.workspace }}/build --exportlists=category-ads-all,category-porn,cn,ir,embargo,github,cloudflare,youtube
           mv ${{ github.workspace }}/build/dlc.dat ${{ github.workspace }}/build/geosite.dat
 
 
