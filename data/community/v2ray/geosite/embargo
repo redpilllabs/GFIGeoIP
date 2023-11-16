@@ -47,7 +47,7 @@ kaggle.net
 fireworks.ai
 download.pytorch.org
 
-##### Network / Cloud #####
+##### CDN / Cloud #####
 
 include:aws
 maxmind.com
@@ -61,6 +61,10 @@ namecheap.com
 namesilo.com
 framerusercontent.com
 framerstatic.com
+featuregates.org
+oaistatic.com
+statsigapi.net
+statsig.com
 
 ##### Content / Media #####
 
