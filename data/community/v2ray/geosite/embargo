@@ -22,6 +22,7 @@ developerprofiles-pa.clients6.google.com
 content-developerprofiles-pa.googleapis.com
 storage.googleapis.com
 issuetracker.google.com
+opensource.google
 firebase.google.com
 firebase.com
 android.com
@@ -32,7 +33,7 @@ intel.com
 gitlab.com
 pkg.go.dev
 golang.org
-
+godoc.org
 teamtreehouse.com
 colab.google
 web.dev
@@ -65,6 +66,7 @@ featuregates.org
 oaistatic.com
 statsigapi.net
 statsig.com
+auth0.com
 
 ##### Content / Media #####
 
