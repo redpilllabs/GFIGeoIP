@@ -31,9 +31,9 @@ The `geosite.dat` and `geosite.db` datasets currently offer the following networ
 
 ## Sing-Box core
 
-`GeoIP` [https://github.com/redpilllabs/GFIGeoIP/releases/latest/download/geoip.dat](https://github.com/redpilllabs/GFIGeoIP/releases/latest/download/geoip.db)
+`GeoIP` [https://github.com/redpilllabs/GFIGeoIP/releases/latest/download/geoip.db](https://github.com/redpilllabs/GFIGeoIP/releases/latest/download/geoip.db)
 
-`GeoSite` [https://github.com/redpilllabs/GFIGeoIP/releases/latest/download/geosite.dat](https://github.com/redpilllabs/GFIGeoIP/releases/latest/download/geosite.db)
+`GeoSite` [https://github.com/redpilllabs/GFIGeoIP/releases/latest/download/geosite.db](https://github.com/redpilllabs/GFIGeoIP/releases/latest/download/geosite.db)
 
 # How do I use it?
 
