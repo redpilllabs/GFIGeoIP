@@ -76,7 +76,8 @@ jobs:
           curl -sSL --progress-bar "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key=${LICENSE_KEY}&suffix=zip" -o GeoLite2-Country-CSV.zip
           curl -sSL --progress-bar "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=${LICENSE_KEY}&suffix=tar.gz" -o GeoLite2-Country.tar.gz
           curl -sSL --progress-bar "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN-CSV&license_key=${LICENSE_KEY}&suffix=zip" -o GeoLite2-ASN-CSV.zip
-          tar -xvf GeoLite2-Country.tar.gz --wildcards --strip-components=1 '*/GeoLite2-Country.mmdb' -C ${{ github.workspace }}/data/geolite2
+          tar -xvf GeoLite2-Country.tar.gz --wildcards --strip-components=1 '*/GeoLite2-Country.mmdb'
+          mv GeoLite2-Country.mmdb ${{ github.workspace }}/data/geolite2/GeoLite2-Country.mmdb
           unzip -j -o GeoLite2-Country-CSV.zip -d ${{ github.workspace }}/data/geolite2
           unzip -j -o GeoLite2-ASN-CSV.zip -d ${{ github.workspace }}/data/geolite2
           rm -f GeoLite2-Country-CSV.zip
