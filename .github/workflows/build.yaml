@@ -41,6 +41,21 @@ jobs:
           path: v2fly-geosite
 
 
+      - name: Checkout SagerNet/sing-geoip repository
+        uses: actions/checkout@v4
+        with:
+          repository: SagerNet/sing-geoip
+          path: sing-geoip
+
+
+      # TODO: Change to upstream when (https://github.com/SagerNet/sing-geosite/pull/9) is merged
+      - name: Checkout kyochikuto/sing-geosite repository
+        uses: actions/checkout@v4
+        with:
+          repository: kyochikuto/sing-geosite
+          path: sing-geosite
+
+
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
@@ -59,10 +74,13 @@ jobs:
           LICENSE_KEY: ${{ secrets.MAXMIND_LICENSE_KEY }}
         run: |
           curl -sSL --progress-bar "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key=${LICENSE_KEY}&suffix=zip" -o GeoLite2-Country-CSV.zip
+          curl -sSL --progress-bar "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=${LICENSE_KEY}&suffix=tar.gz" -o GeoLite2-Country.tar.gz
           curl -sSL --progress-bar "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN-CSV&license_key=${LICENSE_KEY}&suffix=zip" -o GeoLite2-ASN-CSV.zip
+          tar -xvf GeoLite2-Country.tar.gz --wildcards --strip-components=1 '*/GeoLite2-Country.mmdb' -C ${{ github.workspace }}/data/geolite2
           unzip -j -o GeoLite2-Country-CSV.zip -d ${{ github.workspace }}/data/geolite2
           unzip -j -o GeoLite2-ASN-CSV.zip -d ${{ github.workspace }}/data/geolite2
           rm -f GeoLite2-Country-CSV.zip
+          rm -f GeoLite2-Country.tar.gz
           rm -f GeoLite2-ASN-CSV.zip
 
       - name: Get DB-IP database
@@ -78,19 +96,24 @@ jobs:
           python ./main.py
 
 
-      - name: Build GeoIP dat files
+      - name: Build Xray/v2ray GeoIP dat files
         run: |
           cd ${{ github.workspace }}/v2fly-geoip
           go mod download
           go run ./ -c ${{ github.workspace }}/data/community/v2ray/geoip/config.json
-
-
-      - name: Move files to build dir
-        run: |
           mv ${{ github.workspace }}/v2fly-geoip/output/dat/*.dat ${{ github.workspace }}/build
 
 
-      - name: Build GeoSite dat files
+      - name: Build Sing-Box GeoIP db file
+        run: |
+          cd ${{ github.workspace }}/sing-geoip
+          mkdir output
+          go mod download
+          go run main.go ${{ github.workspace }}/data/geolite2/GeoLite2-Country.mmdb output/geoip.db ir cn
+          mv output/geoip.db ${{ github.workspace }}/build/geoip.db
+
+
+      - name: Build Xray/v2ray GeoSite dat files
         run: |
           cd ${{ github.workspace }}/v2fly-geosite
           go mod download
@@ -101,10 +124,19 @@ jobs:
           mv ${{ github.workspace }}/build/dlc.dat ${{ github.workspace }}/build/geosite.dat
 
 
+      - name: Build Sing-Box GeoSite db file
+        run: |
+          cd ${{ github.workspace }}/sing-geosite
+          mkdir output
+          go mod download
+          go run main.go ${{ github.workspace }}/build/geosite.dat output/geosite.db
+          mv output/geosite.db ${{ github.workspace }}/build/geosite.db
+
+
       - name: Generate sha256 checksum for assets
         run: |
           cd ${{ github.workspace }}/build || exit 1
-          for name in $(ls *.dat); do
+          for name in $(ls *.dat *.db); do
             sha256sum ${name} > ./${name}.sha256sum
           done
 
