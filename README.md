@@ -75,6 +75,14 @@ The following is a lean example of v2ray/xray client configuration:
 }
 ```
 
+# Contribution
+
+Entries in the `embargo` database should be tested with the following curl command and return with a 403 HTTP status code :
+
+```
+curl -I -s -o /dev/null -w "%{http_code}" https://DOMAIN.TLD
+```
+
 # What sources are used for aggregation?
 
 Data are pulled from multiple sources such as DBIP, MaxMind Geolite2, ITO, and manually inspected networks.
