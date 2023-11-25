@@ -23,25 +23,31 @@ content-developerprofiles-pa.googleapis.com
 storage.googleapis.com
 issuetracker.google.com
 opensource.google
+cloud.google.com
 firebase.google.com
 firebase.com
 android.com
 jitpack.io
 maven.google.com
 nvidia.com
-intel.com
+download.intel.com
 gitlab.com
+gitlab.net
 pkg.go.dev
 golang.org
 godoc.org
 teamtreehouse.com
 colab.google
 web.dev
+themeforest.net
+mongodb.org
+download.clearlinux.org
 
 ##### AI / Data Science #####
 
 include:openai
 bard.google.com
+ai.google
 claude.ai
 anthropic.com
 kaggle.net
@@ -67,6 +73,7 @@ oaistatic.com
 statsigapi.net
 statsig.com
 auth0.com
+one.google.com
 
 ##### Content / Media #####
 
