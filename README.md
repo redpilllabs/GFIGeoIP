@@ -2,13 +2,13 @@
 
 This is a collaborative effort to gather an aggregated database of GeoIPs registered in Iran, China and also common IPs belonging to widely-used services. This helps users to implement ACLs on their VPN clients or cloud servers to aid in routing decisions, content blocking, and probing protection.
 
-The repository offers two types of datasets targeting different use-cases, the `agg_cidrs.csv` dataset is intended for utilization on cloud servers (`xtables` module on Linux) and is currently used in `Rainb0w` proxy installers available on [RedPillLabs](https://github.com/redpilllabs) repositories page, while `.dat` datasets are intended for use on v2ray/xray compatible clients.
+The repository offers two types of datasets targeting different use-cases, the `agg_cidrs.csv` dataset is intended for utilization on cloud servers (`xtables` module on Linux) and is currently used in `Rainb0w` proxy installers available on [RedPillLabs](https://github.com/redpilllabs) repositories page, while `.dat` datasets are intended for use on v2ray/xray and `.db` datasets are intended for sing-box compatible clients.
 
 The `agg_cidrs.csv` dataset currently offers the following networks: `[IR, CN, CF (Cloudflare)]`.
 
-The `geoip.dat` dataset currently offers the following networks: `[ir, cn, cloudflare, google, amazon, microsoft, github, facebook, twitter, telegram]`.
+The `geoip.dat` dataset currently offers the following networks: `[ir, cn, cloudflare, google, amazon, microsoft, github, facebook, twitter, telegram]` while the `geoip.db` only offers country tags available in GeoLite2 database.
 
-The `geosite.dat` dataset currently offers the following networks:
+The `geosite.dat` and `geosite.db` datasets currently offer the following networks:
 
 ```
 - category-ads-all -> Aggregated list of domains used for advertising
@@ -18,13 +18,22 @@ The `geosite.dat` dataset currently offers the following networks:
 - embargo -> Websites that have banned Iranian IPs (403 error)
 - github -> Domains belonging to GitHub
 - cloudflare -> Domains belonging to Cloudflare
+- youtube -> Domains belonging to YouTube
 ```
 
 # Download
 
+## Xray/v2ray core
+
 `GeoIP` [https://github.com/redpilllabs/GFIGeoIP/releases/latest/download/geoip.dat](https://github.com/redpilllabs/GFIGeoIP/releases/latest/download/geoip.dat)
 
 `GeoSite` [https://github.com/redpilllabs/GFIGeoIP/releases/latest/download/geosite.dat](https://github.com/redpilllabs/GFIGeoIP/releases/latest/download/geosite.dat)
+
+## Sing-Box core
+
+`GeoIP` [https://github.com/redpilllabs/GFIGeoIP/releases/latest/download/geoip.dat](https://github.com/redpilllabs/GFIGeoIP/releases/latest/download/geoip.db)
+
+`GeoSite` [https://github.com/redpilllabs/GFIGeoIP/releases/latest/download/geosite.dat](https://github.com/redpilllabs/GFIGeoIP/releases/latest/download/geosite.db)
 
 # How do I use it?
 
