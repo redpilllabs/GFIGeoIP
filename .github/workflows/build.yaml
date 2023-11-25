@@ -147,8 +147,12 @@ jobs:
             ./build/agg_cidrs.csv \
             ./build/geosite.dat \
             ./build/geosite.dat.sha256sum \
+            ./build/geosite.db \
+            ./build/geosite.db.sha256sum \
             ./build/geoip.dat \
             ./build/geoip.dat.sha256sum \
+            ./build/geoip.db \
+            ./build/geoip.db.sha256sum \
             ./build/geoip-lite.dat \
             ./build/geoip-lite.dat.sha256sum \
         env:
