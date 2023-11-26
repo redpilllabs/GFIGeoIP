@@ -110,7 +110,7 @@ jobs:
           cd ${{ github.workspace }}/sing-geoip
           mkdir output
           go mod download
-          go run main.go ${{ github.workspace }}/data/geolite2/GeoLite2-Country.mmdb output/geoip.db ir cn
+          go run main.go ${{ github.workspace }}/data/geolite2/GeoLite2-Country.mmdb output/geoip.db ir
           mv output/geoip.db ${{ github.workspace }}/build/geoip.db
 
 
@@ -121,7 +121,7 @@ jobs:
           rm ./data/category-ir
           rm ./data/youtube
           cp ${{ github.workspace }}/data/community/v2ray/geosite/* ./data/
-          go run ./ --outputdir=${{ github.workspace }}/build --exportlists=category-ads-all,category-porn,cn,ir,embargo,github,cloudflare,youtube
+          go run ./ --outputdir=${{ github.workspace }}/build --exportlists=category-ads-all,category-porn,ir,embargo,github,cloudflare,youtube
           mv ${{ github.workspace }}/build/dlc.dat ${{ github.workspace }}/build/geosite.dat
 
 

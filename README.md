@@ -6,14 +6,13 @@ The repository offers two types of datasets targeting different use-cases, the `
 
 The `agg_cidrs.csv` dataset currently offers the following networks: `[IR, CN, CF (Cloudflare)]`.
 
-The `geoip.dat` dataset currently offers the following networks: `[ir, cn, cloudflare, google, amazon, microsoft, github, facebook, twitter, telegram]` while the `geoip.db` only offers country tags available in GeoLite2 database.
+The `geoip.dat` dataset currently offers the following networks: `[ir, cloudflare, google, amazon, microsoft, github, facebook, twitter, telegram]` while the `geoip.db` only offers country tags available in GeoLite2 database.
 
 The `geosite.dat` and `geosite.db` datasets currently offer the following networks:
 
 ```
 - category-ads-all -> Aggregated list of domains used for advertising
 - category-porn -> Aggregated list of domains hosting NSFW content
-- cn -> Aggregated list of Chinese domains plus regex rule for the [.cn] ccTLD
 - ir -> Aggregated list of Iranian domains plus regex rule for the [.ir] ccTLD
 - embargo -> Websites that have banned Iranian IPs (403 error)
 - github -> Domains belonging to GitHub
