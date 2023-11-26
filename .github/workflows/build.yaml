@@ -121,7 +121,7 @@ jobs:
           rm ./data/category-ir
           rm ./data/youtube
           cp ${{ github.workspace }}/data/community/v2ray/geosite/* ./data/
-          go run ./ --outputdir=${{ github.workspace }}/build --exportlists=category-ads-all,category-porn,ir,embargo,github,cloudflare,youtube
+          go run ./ --outputdir=${{ github.workspace }}/build --exportlists=category-ads-all,category-porn,ir,embargo,github,cloudflare,youtube,twitter
           mv ${{ github.workspace }}/build/dlc.dat ${{ github.workspace }}/build/geosite.dat
 
 

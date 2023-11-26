@@ -18,6 +18,7 @@ The `geosite.dat` and `geosite.db` datasets currently offer the following networ
 - github -> Domains belonging to GitHub
 - cloudflare -> Domains belonging to Cloudflare
 - youtube -> Domains belonging to YouTube
+- twitter -> Domains belonging to Twitter
 ```
 
 # Download
