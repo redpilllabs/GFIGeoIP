@@ -41,10 +41,10 @@ jobs:
           path: v2fly-geosite
 
 
-      - name: Checkout SagerNet/sing-geoip repository
+      - name: Checkout kyochikuto/sing-geoip repository
         uses: actions/checkout@v4
         with:
-          repository: SagerNet/sing-geoip
+          repository: kyochikuto/sing-geoip
           path: sing-geoip
 
 
