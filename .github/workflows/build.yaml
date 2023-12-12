@@ -94,6 +94,7 @@ jobs:
 
       - name: Aggregate and create IP text databases
         run: |
+          mkdir ${{ github.workspace }}/build
           python ./main.py
 
 
