@@ -1,0 +1,160 @@
+name: Build and release GeoIP and GeoSite databases
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 23 * *"
+  push:
+    paths:
+      - 'data/community/**'
+      - 'data/ito/**'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup environment
+        shell: bash
+        run: |
+          echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+          echo "RELEASE_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+
+
+      - name: Checkout codebase
+        uses: actions/checkout@v4
+
+
+      - name: Checkout v2fly/geoip repository
+        uses: actions/checkout@v4
+        with:
+          repository: v2fly/geoip
+          path: v2fly-geoip
+
+
+      - name: Checkout v2fly/geosite repository
+        uses: actions/checkout@v4
+        with:
+          repository: v2fly/domain-list-community
+          path: v2fly-geosite
+
+
+      - name: Checkout kyochikuto/sing-geoip repository
+        uses: actions/checkout@v4
+        with:
+          repository: kyochikuto/sing-geoip
+          path: sing-geoip
+
+
+      # TODO: Change to upstream when (https://github.com/SagerNet/sing-geosite/pull/9) is merged
+      - name: Checkout kyochikuto/sing-geosite repository
+        uses: actions/checkout@v4
+        with:
+          repository: kyochikuto/sing-geosite
+          path: sing-geosite
+
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version-file: ${{ github.workspace }}/v2fly-geoip/go.mod
+
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+
+      - name: Get MaxMind GeoLite2 database
+        working-directory: ${{ github.workspace }}
+        env:
+          LICENSE_KEY: ${{ secrets.MAXMIND_LICENSE_KEY }}
+        run: |
+          curl -sSL --progress-bar "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country-CSV&license_key=${LICENSE_KEY}&suffix=zip" -o GeoLite2-Country-CSV.zip
+          curl -sSL --progress-bar "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=${LICENSE_KEY}&suffix=tar.gz" -o GeoLite2-Country.tar.gz
+          curl -sSL --progress-bar "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN-CSV&license_key=${LICENSE_KEY}&suffix=zip" -o GeoLite2-ASN-CSV.zip
+          tar -xvf GeoLite2-Country.tar.gz --wildcards --strip-components=1 '*/GeoLite2-Country.mmdb'
+          mv GeoLite2-Country.mmdb ${{ github.workspace }}/data/geolite2/GeoLite2-Country.mmdb
+          unzip -j -o GeoLite2-Country-CSV.zip -d ${{ github.workspace }}/data/geolite2
+          unzip -j -o GeoLite2-ASN-CSV.zip -d ${{ github.workspace }}/data/geolite2
+          rm -f GeoLite2-Country-CSV.zip
+          rm -f GeoLite2-Country.tar.gz
+          rm -f GeoLite2-ASN-CSV.zip
+
+      - name: Get DB-IP database
+        run: |
+          curl -sSL "https://download.db-ip.com/free/dbip-country-lite-2023-12.csv.gz" -o dbip-country-lite.csv.gz
+          gunzip dbip-country-lite.csv.gz
+          rm -f dbip-country-lite.csv.gz
+          find . -type f -name "dbip*.csv" -exec mv {} ${{ github.workspace }}/data/dbip \;
+
+
+      - name: Aggregate and create IP text databases
+        run: |
+          mkdir ${{ github.workspace }}/build
+          python ./main.py
+
+
+      - name: Build Xray/v2ray GeoIP dat files
+        run: |
+          cd ${{ github.workspace }}/v2fly-geoip
+          go mod download
+          go run ./ -c ${{ github.workspace }}/data/community/v2ray/geoip/config.json
+          mv ${{ github.workspace }}/v2fly-geoip/output/dat/*.dat ${{ github.workspace }}/build
+
+
+      - name: Build Sing-Box GeoIP db file
+        run: |
+          cd ${{ github.workspace }}/sing-geoip
+          mkdir output
+          go mod download
+          go run main.go ${{ github.workspace }}/data/geolite2/GeoLite2-Country.mmdb output/geoip.db ir
+          mv output/geoip.db ${{ github.workspace }}/build/geoip.db
+
+
+      - name: Build Xray/v2ray GeoSite dat files
+        run: |
+          cd ${{ github.workspace }}/v2fly-geosite
+          go mod download
+          rm ./data/category-ir
+          rm ./data/youtube
+          cp ${{ github.workspace }}/data/community/v2ray/geosite/* ./data/
+          go run ./ --outputdir=${{ github.workspace }}/build --exportlists=category-ads-all,category-porn,ir,embargo,github,cloudflare,youtube,twitter
+          mv ${{ github.workspace }}/build/dlc.dat ${{ github.workspace }}/build/geosite.dat
+
+
+      - name: Build Sing-Box GeoSite db file
+        run: |
+          cd ${{ github.workspace }}/sing-geosite
+          mkdir output
+          go mod download
+          go run main.go ${{ github.workspace }}/build/geosite.dat output/geosite.db
+          mv output/geosite.db ${{ github.workspace }}/build/geosite.db
+
+
+      - name: Generate sha256 checksum for assets
+        run: |
+          cd ${{ github.workspace }}/build || exit 1
+          for name in $(ls *.dat *.db); do
+            sha256sum ${name} > ./${name}.sha256sum
+          done
+
+      - name: Release and upload assets
+        run: |
+          gh release create --notes "Updated database" ${{ env.TAG_NAME }} --title ${{ env.RELEASE_NAME }} \
+            ./build/agg_cidrs.csv \
+            ./build/geosite.dat \
+            ./build/geosite.dat.sha256sum \
+            ./build/geosite.db \
+            ./build/geosite.db.sha256sum \
+            ./build/geoip.dat \
+            ./build/geoip.dat.sha256sum \
+            ./build/geoip.db \
+            ./build/geoip.db.sha256sum \
+            ./build/geoip-lite.dat \
+            ./build/geoip-lite.dat.sha256sum \
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
