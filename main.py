@@ -36,6 +36,7 @@ def main():
     aggregated_ipv6_df = pd.DataFrame(columns=["Network", "Tag"])
     geo_networks = [
         {"name": "China", "tag": "CN"},
+        {"name": "Russia", "tag": "RU"},
         {"name": "Iran", "tag": "IR"},
     ]
 

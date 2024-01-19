@@ -33,6 +33,14 @@
             "type": "text",
             "action": "add",
             "args": {
+                "name": "ru",
+                "uri": "../build/geoip_ru.txt"
+            }
+        },
+        {
+            "type": "text",
+            "action": "add",
+            "args": {
                 "name": "cloudflare",
                 "uri": "https://www.cloudflare.com/ips-v4"
             }
