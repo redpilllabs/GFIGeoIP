@@ -1,8 +1,6 @@
 name: Build and release GeoIP and GeoSite databases
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 0 23 * *"
   push:
     paths:
       - 'data/community/**'
