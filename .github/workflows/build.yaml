@@ -84,7 +84,7 @@ jobs:
 
       - name: Get DB-IP database
         run: |
-          curl -sSL "https://download.db-ip.com/free/dbip-country-lite-2023-12.csv.gz" -o dbip-country-lite.csv.gz
+          curl -sSL "https://download.db-ip.com/free/dbip-country-lite-2024-02.csv.gz" -o dbip-country-lite.csv.gz
           gunzip dbip-country-lite.csv.gz
           rm -f dbip-country-lite.csv.gz
           find . -type f -name "dbip*.csv" -exec mv {} ${{ github.workspace }}/data/dbip \;
