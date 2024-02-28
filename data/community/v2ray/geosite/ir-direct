@@ -20,9 +20,3 @@ fonts.gstatic.com
 
 gradle.org
 maven.apache.org
-
-# GitHub Docker registry
-
-# Note: The main domain (github.com) will not be added since there are paid features offered and users might get banned using an Iranian IP
-
-ghcr.io
