@@ -45,8 +45,7 @@ jobs:
           repository: kyochikuto/sing-geoip
           path: sing-geoip
 
-
-      # TODO: Change to upstream when (https://github.com/SagerNet/sing-geosite/pull/9) is merged
+          
       - name: Checkout kyochikuto/sing-geosite repository
         uses: actions/checkout@v4
         with:
@@ -109,7 +108,7 @@ jobs:
           cd ${{ github.workspace }}/sing-geoip
           mkdir output
           go mod download
-          go run main.go ${{ github.workspace }}/data/geolite2/GeoLite2-Country.mmdb output/geoip.db ir
+          go run main.go ${{ github.workspace }}/data/geolite2/GeoLite2-Country.mmdb output/geoip.db "GeoLite2" "rule-set"
           mv output/geoip.db ${{ github.workspace }}/build/geoip.db
 
 
@@ -129,7 +128,7 @@ jobs:
           cd ${{ github.workspace }}/sing-geosite
           mkdir output
           go mod download
-          go run main.go ${{ github.workspace }}/build/geosite.dat output/geosite.db
+          go run main.go ${{ github.workspace }}/build/geosite.dat output/geosite.db "rule-set"
           mv output/geosite.db ${{ github.workspace }}/build/geosite.db
 
 
