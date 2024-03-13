@@ -63,13 +63,15 @@ warp.dev
 ##### AI / Data Science #####
 
 include:openai
-bard.google.com
+gemini.google.com
 ai.google
 claude.ai
 anthropic.com
 kaggle.net
 fireworks.ai
 download.pytorch.org
+ollama.ai
+ollama.com
 
 ##### CDN / Cloud #####
 
@@ -116,3 +118,6 @@ bulletjournal.com
 moremins.com
 twilio.com
 linktr.ee
+
+##### Others #####
+list-manage.com
