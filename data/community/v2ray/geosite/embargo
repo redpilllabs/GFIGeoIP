@@ -33,7 +33,7 @@ dl-ssl.google.com
 developers.google.com
 developerprofiles-pa.clients6.google.com
 content-developerprofiles-pa.googleapis.com
-storage.googleapis.com
+googleapis.com
 issuetracker.google.com
 opensource.google
 cloud.google.com
@@ -63,6 +63,8 @@ warp.dev
 ##### AI / Data Science #####
 
 include:openai
+chatgpt.com
+openai.com
 gemini.google.com
 ai.google
 claude.ai
