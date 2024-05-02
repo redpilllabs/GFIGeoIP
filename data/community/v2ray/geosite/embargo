@@ -32,11 +32,11 @@ dl.google.com
 dl-ssl.google.com
 developers.google.com
 developerprofiles-pa.clients6.google.com
-content-developerprofiles-pa.googleapis.com
 googleapis.com
 issuetracker.google.com
 opensource.google
 cloud.google.com
+notifications.google.com
 firebase.google.com
 firebase.com
 android.com
@@ -44,7 +44,11 @@ jitpack.io
 maven.google.com
 jcenter.bintray.com
 nvidia.com
-download.intel.com
+intel.com
+amd.com
+lenovo.com
+hp.com
+dell.com
 gitlab.com
 gitlab.net
 pkg.go.dev
@@ -52,6 +56,7 @@ golang.org
 godoc.org
 teamtreehouse.com
 colab.google
+io.google.com
 web.dev
 themeforest.net
 mongodb.org
@@ -110,6 +115,10 @@ xboxab.net
 xboxlive.com
 xboxservices.com
 epicgames.com
+mashable.com
+pcmag.com
+mixkit.co
+zedge.net
 
 ##### Productivity #####
 
