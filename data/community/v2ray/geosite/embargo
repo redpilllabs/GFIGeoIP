@@ -30,14 +30,14 @@ include:adobe
 dl.google.com
 dl-ssl.google.com
 developers.google.com
-developerprofiles-pa.clients6.google.com
-googleapis.com
 issuetracker.google.com
 opensource.google
 cloud.google.com
-notifications.google.com
+colab.google
+io.google
 firebase.google.com
 firebase.com
+googleapis.com
 android.com
 jitpack.io
 maven.google.com
@@ -52,8 +52,6 @@ pkg.go.dev
 golang.org
 godoc.org
 teamtreehouse.com
-colab.google
-io.google
 web.dev
 themeforest.net
 mongodb.org
@@ -66,8 +64,6 @@ developer.apple.com
 ##### AI / Data Science #####
 
 include:openai
-chatgpt.com
-openai.com
 gemini.google.com
 ai.google
 claude.ai
@@ -94,7 +90,6 @@ namesilo.com
 framerusercontent.com
 framerstatic.com
 featuregates.org
-oaistatic.com
 statsigapi.net
 statsig.com
 auth0.com
