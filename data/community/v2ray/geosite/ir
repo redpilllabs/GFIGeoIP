@@ -29,45 +29,55 @@ include:snapp
 
 # Only include domains ending not in '.ir' since we have the TLD filter above
 
-# Leechers / Pirates
 
+# Leechers / Pirates
 p30download.com
 parsget.com
 rapidpars.com
 
-# Blog
 
+# Blog
 blogfa.com
 blogsky.com
 loxblog.com
 niniweblog.com
 rozblog.com
 
-# Maps
 
+# Maps
 neshan.org
 
-# Sport
 
+# Sport
 varzesh3.com
 
-# Financial
 
+# Financial
 tgju.org
 ircd.me
 wallpay.org
 bitpin.org
+tabdeal.org
+etctabdeal.org
+mydigipay.com
+paymanpay.com
 
 # Cars
-
 karnameh.com
 khodro45.com
 saipacorp.com
 
-# Jobs
 
+# Jobs
 jobinja.com
 jobinjacdn.com
 beytoote.com
 setare.com
 tebyan.net
+
+
+# Ads
+yektanet.com
+
+# Shops
+digikala.com
